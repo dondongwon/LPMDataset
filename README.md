@@ -1,6 +1,7 @@
 # Multimodal Lecture Presentations (MLP) Dataset
 
 This is the official repository for the *Multimodal Lecture Presentations (MLP) Dataset* 
+
  [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
  
 [cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
