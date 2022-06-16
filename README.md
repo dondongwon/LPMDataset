@@ -25,7 +25,7 @@ Coming Soon...
 
 # Overview
 
-![](/images/overview.pdf)
+![](/images/overview.png)
 
 This repo has information on how to access the dataset, as well as the training code for baselnie moels . 
 
