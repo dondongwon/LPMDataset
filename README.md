@@ -1,4 +1,4 @@
-# MLPDataset
+# Multimodal Lecture Presentations (MLP) Dataset
 
 
 
