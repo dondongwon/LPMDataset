@@ -7,9 +7,9 @@ We offer the Youtube video links in `raw_video_links.csv`, and the full MTurk an
 ## Dataset Structure
 
 Given `Speaker` as a speaker of interest, we have 3 json files:
-* `/{Speaker}/{Speaker}.json -- a json dictionary that contains the full information for each *slide*. Each *slide* is given an ID and the corresponding slide image, slide spoken language, slide object character recognition (OCR), slide mouse traces, the bounding boxes and labels (diagram, equation, table, natural image) of the figure on slide
-* `/{Speaker}/{Speaker}_figs.json -- a json dictionary that contains the full information for each *figure*. Each *figure* is given an ID and contains the same data as as above. 
-* `/{Speaker}/{Speaker}_capfig.json -- a json dictionary that maps the figures to the slide. The keys of the dictionary are the slide IDs in {Speaker}.json and the values are the figure IDs in {Speaker}_figs.json
+* `/{Speaker}/{Speaker}.json` -- a json dictionary that contains the full information for each *slide*. Each *slide* is given an ID and the corresponding slide image, slide spoken language, slide object character recognition (OCR), slide mouse traces, the bounding boxes and labels (diagram, equation, table, natural image) of the figure on slide
+* `/{Speaker}/{Speaker}_figs.json` -- a json dictionary that contains the full information for each *figure*. Each *figure* is given an ID and contains the same data as as above. 
+* `/{Speaker}/{Speaker}_capfig.json` -- a json dictionary that maps the figures to the slide. The keys of the dictionary are the slide IDs in {Speaker}.json and the values are the figure IDs in {Speaker}_figs.json
 
 Given a speaker's course name ('unordered' if it is not an full course, but a collection of individual lecture videos), and lecture number, we offer the following:
 
