@@ -27,21 +27,15 @@ Coming Soon...
 
 ![](/images/overview.png)
 
-This repo has information on how to access the dataset, as well as the training code for baselnie moels . 
+Lecture slide presentations, a sequence of pages that contain text and figures accompanied by speech, are constructed and presented carefully in order to optimally transfer knowledge to students. Previous studies in multimedia and psychology attribute the effectiveness of lecture presentations to their multimodal nature. As a step toward developing AI to aid in student learning as intelligent teacher assistants, we introduce the Multimodal Lecture Presentations dataset as a large-scale benchmark testing the capabilities of machine learning models in multimodal understanding of educational content. To benchmark the understanding of multimodal information in lecture slides, we introduce two research tasks which are designed to be a first step towards developing AI that can explain and illustrate lecture slides: automatic retrieval of (1) spoken explanations for an educational figure (Figure-to-Text) and (2) illustrations to accompany a spoken explanation (Text-to-Figure)
 
-For the dataset, we refer you to:
-* [Dataset Website](http://chahuja.com/pats) for downloading the dataset
-* [Dataset Repo](https://github.com/chahuja/pats) for scripts to download the audio files and other dataloader arguments. 
+![](/images/datapipeline.png)
 
-For the purposes of this repository, we assume that the dataset is downloaded to `../data/`
+As a step towards this direction, MLP dataset contains over 9000 slides with natural images, diagrams, equations, tables and written text, aligned with the speaker's spoken language. These lecture slides are sourced from over 180 hours worth of educational videos in various disciplines such as anatomy, biology, psychology, speaking, dentistry, and machine learning. To enable the above mentioned tasks, we manually annotated the slide segments to accurately capture alignment between spoken language, slides, and figures (diagrams, natural images, table, equations).
 
-This repo is divided into the following sections:
 
-* [Clone](#clone)
-* [Set up environment](#set-up-environment)
-* [Training](#training)
-* [Inference](#inference)
-* [License](#License )
+MLP Dataset and its tasks bring new research opportunities through the following technical challenges: (1) addressing weak crossmodal alignment between figures and spoken language (a figure on the slide is often related to only a portion of spoken language), (2) representing novel visual mediums of man-made figures (e.g., diagrams, tables, and equations), (3) understanding technical language, and (4) capturing interactions in long-range sequences. Furthermore, it offers novel challenges that will spark future research in educational content modeling, multimodal reasoning, and question answering.
+
 
 
 
