@@ -1,5 +1,44 @@
 # Multimodal Lecture Presentations (MLP) Dataset
 
+This is the official repository for the *Multimodal Lecture Presentations (MLP) Dataset* 
+
+
+## Contributors
+
+Correspondence to: 
+  - [Dong Won Lee](http://dongwonl.com) (dongwonl@cs.cmu.edu)
+  - [Chaitanya Ahuja](http://chahuja.com) (cahuja@andrew.cmu.edu)
+  - [Paul Pu Liang]([http://chahuja.com] (pliang@cs.cmu.edu)
+  - [Sanika Natu]() (snatu@andrew.cmu.edu)
+  - [Louis-Philippe Morency](https://www.cs.cmu.edu/~morency/) (morency@cs.cmu.edu)
+
+
+## Paper
+
+Coming Soon... 
+
+
+# Overview
+
+![](/images/overview.png)
+
+This repo has information on how to access the dataset, as well as the training code for baselnie moels . 
+
+For the dataset, we refer you to:
+* [Dataset Website](http://chahuja.com/pats) for downloading the dataset
+* [Dataset Repo](https://github.com/chahuja/pats) for scripts to download the audio files and other dataloader arguments. 
+
+For the purposes of this repository, we assume that the dataset is downloaded to `../data/`
+
+This repo is divided into the following sections:
+
+* [Clone](#clone)
+* [Set up environment](#set-up-environment)
+* [Training](#training)
+* [Inference](#inference)
+* [License](#License )
+
+
 
 
 ## License
