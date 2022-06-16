@@ -11,6 +11,14 @@ The dataset can be downloaded here: [Download](https://drive.google.com/file/d/1
 [cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
 [cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
 
+
+This repo is divided into the following sections:
+
+* `dataset` -- this directory contains more information on the dataset structure 
+* `src` -- contains our experimental setup, including our proposed model `PolyViLT` and a dataloader that can be used to load the data
+* `preprocessing` -- scripts that can be used to automatically process the data 
+
+
 # Overview
 
 ![](/images/overview.png)
