@@ -3,7 +3,6 @@
 
 This repository contains an PyTorch implementation of Figure-to-Text and Text-to-Figure Retrieval for Lecture Presentations Dataset:  
 
-**Look at .sh commands to train**
 
 Baselines:  
 1. PolyViLT
