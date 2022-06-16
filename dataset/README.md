@@ -7,12 +7,13 @@ This repository contains an PyTorch implementation of Figure-to-Text and Text-to
 
 Baselines:  
 1. PolyViLT
-2. PVSE [*Polysemous Visual-Semantic Embedding for Cross-Modal Retrieval* (CVPR 2019)](https://arxiv.org/abs/1906.04402).
-3. PVSE w/ BERT
-4. PCME [*Probabilistic Cross-Modal Embedding* (CVPR 2021)](https://arxiv.org/abs/2101.05068).
-5. PCME w/ BERT
-6. Pre-trained CLIP [*CLIP: Connecting Text and Images* (OpenAI)](https://openai.com/blog/clip/).
-7. Random Baseline
+2. PolyViLT w/ Trace
+3. PVSE [*Polysemous Visual-Semantic Embedding for Cross-Modal Retrieval* (CVPR 2019)](https://arxiv.org/abs/1906.04402).
+4. PVSE w/ BERT
+5. PCME [*Probabilistic Cross-Modal Embedding* (CVPR 2021)](https://arxiv.org/abs/2101.05068).
+6. PCME w/ BERT
+7. Pre-trained CLIP [*CLIP: Connecting Text and Images* (OpenAI)](https://openai.com/blog/clip/).
+8. Random Baseline
 
 
 ```
