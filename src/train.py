@@ -349,15 +349,15 @@ if __name__ == '__main__':
   #load data
 
   sp = args.data_name
-  root_dir = '/projects/dataset_processed/dongwonl/data/{}'.format(sp)
+  root_dir = './dataset/data/{}'.format(sp)
 
-  with open("/projects/dataset_processed/dongwonl/data/{}/{}_figs.json".format(sp,sp), 'r') as f:
+  with open("./dataset/data/{}/{}_figs.json".format(sp,sp), 'r') as f:
      fig_json = json.loads(f.read())
 
-  with open("/projects/dataset_processed/dongwonl/data/{}/{}.json".format(sp,sp), 'r') as j:
+  with open("./dataset/data/{}/{}.json".format(sp,sp), 'r') as j:
      cap_json = json.loads(j.read())
 
-  with open("/projects/dataset_processed/dongwonl/data/{}/{}_capfig.json".format(sp,sp), 'r') as c:
+  with open("./dataset/data/{}/{}_capfig.json".format(sp,sp), 'r') as c:
      connect_json = json.loads(c.read())
 
 
