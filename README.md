@@ -17,12 +17,6 @@ Correspondence to:
   - [Sanika Natu]() (snatu@andrew.cmu.edu)
   - [Louis-Philippe Morency](https://www.cs.cmu.edu/~morency/) (morency@cs.cmu.edu)
 
-
-## Paper
-
-Coming Soon... 
-
-
 # Overview
 
 ![](/images/overview.png)
@@ -36,9 +30,9 @@ As a step towards this direction, MLP dataset contains over 9000 slides with nat
 
 MLP Dataset and its tasks bring new research opportunities through the following technical challenges: (1) addressing weak crossmodal alignment between figures and spoken language (a figure on the slide is often related to only a portion of spoken language), (2) representing novel visual mediums of man-made figures (e.g., diagrams, tables, and equations), (3) understanding technical language, and (4) capturing interactions in long-range sequences. Furthermore, it offers novel challenges that will spark future research in educational content modeling, multimodal reasoning, and question answering.
 
+## Paper
 
-
-
+Coming Soon... 
 
 ## License
 At the time of release, all videos included in this dataset were being made available by the original content providers under the standard [YouTube License](https://www.youtube.com/static?template=terms).
