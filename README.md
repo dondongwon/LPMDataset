@@ -2,6 +2,8 @@
 
 This is the official repository for the *Multimodal Lecture Presentations (MLP) Dataset* 
 
+[![License: CC BY-NC-SA 4.0](https://upload.wikimedia.org/wikipedia/commons/4/4b/CC_BY-NC-SA.svg)]([https://opensource.org/licenses/MIT](https://creativecommons.org/licenses/by-nc-sa/4.0/))
+
 
 ## Contributors
 
