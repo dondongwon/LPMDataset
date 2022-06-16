@@ -2,7 +2,7 @@
 
 This is the official repository for the *Multimodal Lecture Presentations (MLP) Dataset* 
 
-The dataset can be downloaded here: [Link to Data Download](https://drive.google.com/file/d/13aDrmStlaSDFpacSXMOH1M5gaTo0i8c-/view?usp=sharing)
+The dataset can be downloaded here: [Download](https://drive.google.com/file/d/13aDrmStlaSDFpacSXMOH1M5gaTo0i8c-/view?usp=sharing)
 
 
  [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
