@@ -15,6 +15,8 @@ Baselines:
 8. Random Baseline
 
 
+
+### Training
 ```
 #PVSE 
 python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type glove --margin 0.1 --max_violation --num_embeds 5 --txt_attention   --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/pvse/glove/anat-1 --logger_name ./runs/pvse/glove/anat-1 --model PVSE  
@@ -40,6 +42,13 @@ python clip.py --seed 3 --log_file ./logs/clip/anat-1 --data_name anat-1 --wemb_
 #Random
 python3 train.py --seed 3 --data_name anat-1  --wemb_type bert --max_violation --batch_size 8 --log_file ./logs/random/bert/anat-1 --logger_name ./runs/random/bert/anat-1 --model Random 
 
+```
 
 
+### Evaluation
+
+Evaluation can be easily done by adding an `--eval` argument!
+
+```
+python3 train.py --eval --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type bert+vilt --margin 0.1 --max_violation --num_embeds 5 --txt_attention --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/polyvilt/no_trace/anat-1 --logger_name ./runs/polyvilt/no_trace/anat-1 --model Ours_VILT --word_dim 768 --embed_size 768  
 ```
