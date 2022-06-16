@@ -2,7 +2,7 @@
 
 
 
-[Link to Data Download]([https://www.youtube.com/static?template=terms](https://drive.google.com/file/d/13aDrmStlaSDFpacSXMOH1M5gaTo0i8c-/view?usp=sharing))
+[Link to Data Download]([https://www.youtube.com/static?template=terms](https://drive.google.com/file/d/13aDrmStlaSDFpacSXMOH1M5gaTo0i8c-/view?usp=sharing)
 
 
 ## License
