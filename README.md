@@ -13,7 +13,7 @@ This is the official repository for the *Multimodal Lecture Presentations (MLP) 
 Correspondence to: 
   - [Dong Won Lee](http://dongwonl.com) (dongwonl@cs.cmu.edu)
   - [Chaitanya Ahuja](http://chahuja.com) (cahuja@andrew.cmu.edu)
-  - [Paul Pu Liang][(http://chahuja.com](https://www.cs.cmu.edu/~pliang/)) (pliang@cs.cmu.edu)
+  - [Paul Pu Liang] (https://www.cs.cmu.edu/~pliang/) (pliang@cs.cmu.edu)
   - [Sanika Natu]() (snatu@andrew.cmu.edu)
   - [Louis-Philippe Morency](https://www.cs.cmu.edu/~morency/) (morency@cs.cmu.edu)
 
