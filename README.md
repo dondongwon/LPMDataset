@@ -11,15 +11,6 @@ The dataset can be downloaded here: [Download](https://drive.google.com/file/d/1
 [cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
 [cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
 
-## Contributors
-
-Correspondence to: 
-  - [Dong Won Lee](http://dongwonl.com) (dongwonl@cs.cmu.edu)
-  - [Chaitanya Ahuja](http://chahuja.com) (cahuja@andrew.cmu.edu)
-  - [Paul Pu Liang](https://www.cs.cmu.edu/~pliang/) (pliang@cs.cmu.edu)
-  - [Sanika Natu]() (snatu@andrew.cmu.edu)
-  - [Louis-Philippe Morency](https://www.cs.cmu.edu/~morency/) (morency@cs.cmu.edu)
-
 # Overview
 
 ![](/images/overview.png)
@@ -43,4 +34,14 @@ At the time of release, all videos included in this dataset were being made avai
 Unless noted otherwise, we are providing the data of this repository under under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
+
+## Contributors
+
+Correspondence to: 
+  - [Dong Won Lee](http://dongwonl.com) (dongwonl@cs.cmu.edu)
+  - [Chaitanya Ahuja](http://chahuja.com) (cahuja@andrew.cmu.edu)
+  - [Paul Pu Liang](https://www.cs.cmu.edu/~pliang/) (pliang@cs.cmu.edu)
+  - [Sanika Natu]() (snatu@andrew.cmu.edu)
+  - [Louis-Philippe Morency](https://www.cs.cmu.edu/~morency/) (morency@cs.cmu.edu)
+
 
