@@ -1,7 +1,7 @@
 # PolyVILT and Other Baselines
 
 
-This repository contains an PyTorch implementation of Figure-to-Text and Text-to-Figure Retrieval for Lecture Presentations Dataset:  
+This repository contains an PyTorch implementation of Figure-to-Text and Text-to-Figure Retrieval Benchmark for Lecture Presentations Dataset:  
 
 
 ### Baselines:  
