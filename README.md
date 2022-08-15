@@ -29,15 +29,14 @@ We thank the reviewers for their insightful comments regarding the github repo. 
 - [ ] (Reviewr GHav) script to extract audio features 
 
 
+# Overview
+
 This repo is divided into the following sections:
 
 * `dataset` -- this directory contains more information on the dataset structure 
 * `examples` -- quickstart to use our data (dataloading, visualization), and other tools
 * `src` -- contains our full experimental setup, including our proposed model `PolyViLT` and a dataloader that can be used to load the data
 * `preprocessing` -- scripts that can be used to automatically process the data 
-
-
-# Overview
 
 ![](/images/overview.png)
 
