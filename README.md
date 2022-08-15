@@ -37,6 +37,7 @@ This repo is divided into the following sections:
 * `examples` -- quickstart to use our data (dataloading, visualization), and other tools
 * `src` -- contains our full experimental setup, including our proposed model `PolyViLT` and a dataloader that can be used to load the data
 * `preprocessing` -- scripts that can be used to automatically process the data 
+* `human_study` -- results of our human study, raw images and aligned captions can be downloaded here for quick investigation
 
 ![](/images/overview.png)
 
