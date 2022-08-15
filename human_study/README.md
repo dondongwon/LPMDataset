@@ -1,6 +1,6 @@
 # Human Study Results
 
-We share the results for human study here:
+We share the results for human study here: [Download](https://drive.google.com/file/d/1yfETJTHnsrKAI9Fl6-7Mry1kWco_Ial2/view?usp=sharing)
 
 To measure human student performance, we randomly sampled at least 10 figures from the unseen test set for each speaker from 3 random seeds. 
 We ask the human student annotator to mark the caption which describes the figure.
@@ -12,7 +12,9 @@ The results are shown below (Fig 4 in original paper):
 
 For easy investigation into where the human evaluation fails, we ware providing an organized directory where you can easily access the test set used for human student evaluation.
 
-You can find the results, the exact test set (images and captions) used for human evaluation. 
+You can find the results, the exact test set (images and captions) per seed used for human evaluation. 
+
+For instance, to check out the results for 'anat-1' for seed 1, you can go to human_study/1/anat-1/ 
 
 * 1 (Seed Number)
   * anat-1 (Speaker Number)
