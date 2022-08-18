@@ -16,17 +16,15 @@ The dataset can be downloaded here: [Download](https://drive.google.com/file/d/1
 We thank the reviewers for their insightful comments regarding the github repo. We are taking each comment seriously and consequently the repository is going through a major renovation:
 
 - [x] (Reveiwer MsAX) Include human evaluation results, exact testing sets to enable investigatation on where humans fail 
-- [ ] (Reviewer MsAX) Include requirements.txt
+- [ ] (Reviewer MsAX, GHav) Include requirements.txt
 - [ ] (Reviewer MsAX) More jupyter notebooks in examples - Clearer instructions on how to handle this dataset 
 - [ ] (Reviewer MsAX) Jupyter Notebook on what corresponds to 1 example of the dataset - what is the primary key?
 - [ ] (Reviewer MsAX) Update readme to include how to reconsititute the splits of train and test (include references to code line number)
 - [ ] (Reviewer S6Me) Include metadata on learning objectives as a potential label to measure understanding educational slides 
 - [ ] (Reviewer S6Me, GHav) script to run across all different subjects 
-- [ ] (Reviewer FPNg, GHav) Include CSV that includes youtube links to similar nature lecture content, that could be used to extend the dataset
-- [ ] (Reviewer FPNg, GHav) Include prepocessing tools, as well as automatic preprocessing steps (LayoutParser, PysceneDetect)
-- [ ] (Reviewer FPNg, GHav) Include manual annotation scripts (MTurk javascript code)
-- [ ] (Reviewer GHav) ablation scripts (no image, no text)
-- [ ] (Reviewr GHav) script to extract audio features 
+- [ ] (Reviewer FPNg, GHav) Dataset Extension: Include prepocessing tools, as well as automatic preprocessing steps (LayoutParser, PysceneDetect)
+- [ ] (Reviewer FPNg, GHav) Dataset Extension: Include manual annotation scripts (MTurk javascript code)
+- [ ] (Reviewer GHav) Ablation scripts (no image, no text)
 
 
 # Overview
