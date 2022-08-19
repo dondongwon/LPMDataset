@@ -1,0 +1,824 @@
+<style type="text/css">
+    #pageContainer {
+        width: 1500px;
+        margin: 10px;
+    }
+    #movieArea {
+        width: 900px;
+        height: 600px;
+        padding: 5px;
+        background: black;
+        margin-right: 10px;
+        float: left;
+    }
+    #annotationListOuterArea {
+        width: 400;
+        height: 320px;
+        position: relative;
+        top: 0px;
+        right: 0px;
+        padding: 5px;
+        overflow: scroll;
+        border: solid;
+    }
+    .annotationTimeList {
+        width: 95px;
+        margin-right: 2px;
+    }
+    .annotationOpinionList {
+        width: 95px;
+        margin-right: 2px;
+    }
+    #movieControlArea {
+        margin-top: 10px;
+        width: 1250px;
+        height: 90px;
+        float: left;
+        border: solid;
+        padding: 5px;
+    }
+    .movieControls {
+        width: 100px;
+        margin-bottom: 6px;
+    }
+    .playOrPauseButton {
+        margin-left: 15px;
+        width: 110px;
+        height: 58px;
+        font-weight: bold;
+        float: left;
+        margin-right: 15px;
+    }
+    #sliderArea {
+        margin-bottom: 6px;
+    }
+    .sliderBar {
+        width: 250px;
+    }
+    .sliderLabels {
+    }
+    .movieControlLabels {
+        width: 80px;
+        margin-right: 8px;
+        color: red;
+        background: none;
+        border-style: none;
+        float: left;
+    }
+    .movieSelects {
+    }
+    .movieSlectButtons {
+        width: 90px;
+    }
+    #timeDisplayArea {
+        //width: 200px;
+        margin-top: 10px;
+        margin-left: 20px;
+        float: left;
+    }
+    .timeDisplayText {
+        margin-left: 5px;
+        
+        width:70px;
+    }
+    #mainAnnotControlArea {
+        width: 1080;
+        height: auto;
+        //margin-top: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        //border: solid;
+        float: left;
+    }
+    #annotControlArea {
+        float: left;
+    }
+    .selectedTimeTextArea {
+        width: 70px;
+    }
+    .selectedTimeClearButtons {
+        margin-right: 10px;
+    }
+    .annotControlButtons {
+        width: 150px;
+        font-size: larger;
+    }
+    #labelArea {
+        padding: 10px;
+        border: double;
+    }
+    td {
+        padding-right: 10px;
+    }
+    #annotateButtonArea {
+        //width: 150px;
+        width: 300px;
+        //height: 130px;
+        height: auto;
+        padding: 10px;
+        //margin-left: 15px;
+        float: left;
+    }
+    #b_annotate {
+        width: 130px;
+        height: 80px;
+        margin-bottom: 10px;
+        font-size: larger;
+        font-weight: bold;
+    }
+    #b_cancel {
+        width: 130px;
+        height: 40px;
+        margin-bottom: 10px;
+        /*visibility: visible;*/
+    }
+    #save {
+        width: 200px;
+        height: 40px;
+        margin-bottom: 10px;
+        font-size: larger;
+        font-weight: bold;
+        background-color: #248;
+        color: #fff;
+    }
+    #categoryInstArea {
+        width: auto;
+        height: auto;
+        padding: 5px;
+        float: left;
+        font-size: middle;
+        color: black;
+    }
+    #hotkeyInstArea {
+        width: auto;
+        height: auto;
+        padding: 5px;
+        float: left;
+        font-size: small;
+        color: grey;
+    }
+    
+    
+    #feedbackArea {
+        width: auto;
+        height: auto;
+        padding: 5px;
+        float: right;
+        font-size: middle;
+        color: red;
+    }
+    </style>
+    
+    <head>
+        <title>Lecture Segmentation Annotation</title>
+    </head>
+    
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.484.0.min.js"></script>
+    <script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+    <script type="text/javascript">
+        //for web-version need to change!!!!
+        var albumBucketName = 'ges-videos';
+        AWS.config.region = 'us-east-2'; // Region
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                    IdentityPoolId: 'us-east-2:cadc13b3-c183-4012-9773-09a8f24f9bc4',
+        });
+        // Create a new service object
+        var s3 = new AWS.S3({
+        apiVersion: '2006-03-01',
+        params: {Bucket: albumBucketName},
+        }); 
+        //end for web-version
+        var video;
+        var startTimeText;
+        //var endTimeText;
+        var startSelectedTimeText;
+        var endSelectedTimeText;
+        var currentTimeText;
+        var playingAndSetEndTime;
+        var instructionElement;
+        var toggleIsPlay = false;
+        var toggleIsHideInst = false;
+        var FPS = 25; // also change the slider bar granularity
+        var EPSILON = 0.000001;
+        var toggleIsPlayingSelection = false;
+        var annotCnt = 0;
+        var mySliderBar;
+        var pausedTime = 0;
+        var annotEditMode = false;
+        var editAnnotID = null;
+        var outText = "@";
+        var hand = 'left';
+        function init(id) {
+            video = document.getElementById("video");
+            startTimeText = document.getElementById("t_startTimeText");
+            //endTimeText = document.getElementById("t_endTimeText");
+            startSelectedTimeText = document.getElementById("t_startSelectedTimeText");
+            endSelectedTimeText = document.getElementById("t_endSelectedTimeText");
+            currentTimeText = document.getElementById("t_currentTimeText");
+            instructionElement = document.getElementById("instructionsImg");
+            mySliderBar = document.getElementById("sliderBar");
+            setInterval(function() {displayVideoCurrentTime();}, 1/FPS);
+            setInterval(function() {checkAndPauseSelectionPlay();}, 1/FPS);
+            // Check keyboard input events
+            document.onkeydown = KeyInputCheck;
+        }
+        function KeyInputCheck() {
+            var keyCode = event.keyCode;
+            switch(keyCode) {
+                case 37: // Left arrow key input
+                    moveCurrentTime('backward', 'second', 0.5, false);
+                    break;
+                case 39: // Right arrow key input
+                    moveCurrentTime('forward', 'second', 0.5, false);
+                    break;
+                case 65: // "a" key input
+                    annotateOrUpdate('annotationListInnerArea');
+                    break;
+                // case 69: // "e" key input
+                //     setEndTimeText();S
+                //     break;
+                case 70: // "f" key input
+                    playOrPause();
+                    break;
+                case 83: // "s" key input
+                    setStartTimeText();
+                    break;
+            }
+        }
+        function playOrPause() {
+            if( toggleIsPlay == false ) {
+                play();
+            }
+            else {
+                pause();
+            }
+        }
+        function play() {
+            if( toggleIsPlay == false ) {
+                video.currentTime = video.currentTime - EPSILON;
+                video.play();
+                resetSliderPosition();
+                //document.getElementById("b_playOrPause").value = "Pause";
+                toggleIsPlay = true;
+            }
+        }
+        function pause() {
+            if( toggleIsPlay == true ) {
+                video.pause();
+                pausedTime = video.currentTime;
+                //document.getElementById("b_playOrPause").value = "Play";
+                toggleIsPlay = false;
+            }
+        }
+        function movieControlPlay() {
+            video.currentTime = video.currentTime - EPSILON;
+            resetSliderPosition();
+            //document.getElementById("b_playOrPause").value = "Pause";
+            toggleIsPlay = true;
+        }
+        function movieControlPause() {
+            video.currentTime = video.currentTime - EPSILON;
+            video.pause();
+            pausedTime = video.currentTime;
+            //document.getElementById("b_playOrPause").value = "Play";
+            toggleIsPlay = false;
+        }
+        function movieControlSeeked() {
+            video.currentTime = video.currentTime - EPSILON;
+            if( toggleIsPlay == true ) {
+                video.pause();
+                toggleIsPlay = false;
+            }
+            pausedTime = video.currentTime;
+            resetSliderPosition();
+        }
+         function moveCurrentTime(direction, frameOrSec, stepSize, fixedRange) {
+            var stepSizeInSec;
+            pause();
+            if( frameOrSec == "second" ) {
+                stepSizeInSec = stepSize;
+            }
+            else {
+                stepSizeInSec = stepSize * (1/FPS);
+            }
+            if( direction == "backward" ) {
+                stepSizeInSec = -stepSizeInSec;
+            }
+            var tempCurrentTimeStr;
+            if( fixedRange == true ) {
+                tempCurrentTimeStr = String(pausedTime + stepSizeInSec);
+            }
+            else {
+                tempCurrentTimeStr = String(video.currentTime + stepSizeInSec);
+                resetSliderPosition();
+                pausedTime = video.currentTime;
+            }
+            video.currentTime = parseFloat(tempCurrentTimeStr);
+            //tempCurrentTimeStr = tempCurrentTimeStr.substring(0, tempCurrentTimeStr.indexOf('.') + 4);
+            //video.currentTime = parseFloat(tempCurrentTimeStr);
+        }
+        function gotoStart() {
+            pause();
+            video.currentTime = 0.0;
+        }
+        function gotoEnd() {
+            pause();
+            video.currentTime = video.duration;
+            video.ended = false;
+        }
+        function setStartTimeText() {
+            pause();
+            startTimeText.value = currentTimeText.value;
+        }
+        function clearSetStartTimeText() {
+            startTimeText.value = "";
+        }
+        function setSelectedStartTimeText() {
+            pause();
+            startSelectedTimeText.value = currentTimeText.value;
+        }
+        function setSelectedStartTimeText2(annotID) {
+            pause();
+            var elem = document.getElementById(annotID);
+            var startTime = parseFloat(elem.childNodes.item(0).value);
+            startSelectedTimeText.value = startTime;
+        }
+        function setSelectedEndTimeText() {
+            pause();
+            endSelectedTimeText.value = currentTimeText.value;
+        }
+        function setSelectedEndTimeText2(annotID) {
+            pause();
+            var elem = document.getElementById(annotID);
+            var endTime = parseFloat(elem.childNodes.item(0).value);
+            endSelectedTimeText.value = endTime;
+        }
+        function clearCheckedLabel() {
+            var labelGroupEle = document.getElementsByName("labelGroup");
+            for( var i = 0; i < labelGroupEle.length; i++) {
+                labelGroupEle[i].checked = false;
+            }
+        }
+        function isValidTimeSelection2() {
+            return true;
+        }
+        function isValidTimeSelection(separator) {
+            if( startTimeText.value != "" || separator == true) {
+                return true;
+            }
+            else {
+                alert("Please specify the start time.");
+                return false;
+            }
+            return false;
+        }
+        function isValidSelection(separator) {
+            if( isValidTimeSelection(separator) == true ) {
+                if( getCheckedLabelValue() != null || separator == true) {
+                    return true;
+                }
+                else {
+                    alert("Please select the phase category.");
+                    return false;
+                }
+            } else {
+                //alert("Not valid selection");
+            }
+            return false;
+        }
+        function playSelection() {
+            if( isValidTimeSelection2() == true ) {
+                var startTime = parseFloat(startSelectedTimeText.value);
+                var endTime = parseFloat(endSelectedTimeText.value);
+                var duration = 0.0;
+                video.currentTime = startTime;
+                toggleIsPlayingSelection = true;
+                playingAndSetEndTime = endTime;
+                duration = endTime-startTime
+                t_durationText.value= duration.toFixed(3);
+                play();
+            }
+        }
+    function playSelection2(annotID) {
+        pause();
+        var elem = document.getElementById(annotID);
+        var startTime = parseFloat(elem.childNodes.item(0).value);
+        startSelectedTimeText.value = startTime;
+        var id = parseInt(annotID.substring(5), 10);
+        var nextId = id + 1;
+        var annotID2 = "annot" + nextId;
+        var elem2 = document.getElementById(annotID2);
+        var endTime = parseFloat(elem2.childNodes.item(0).value);
+        endSelectedTimeText.value = endTime;
+        if( isValidTimeSelection2() == true ) {
+            var duration = 0.0;
+            video.currentTime = startTime;
+            toggleIsPlayingSelection = true;
+            playingAndSetEndTime = endTime;
+            duration = endTime-startTime
+            t_durationText.value= duration.toFixed(3);
+            play();
+        }
+    }
+    
+    
+    function playSelection3(annotID) {
+        var elem = document.getElementById(annotID);
+        var startTime = parseFloat(elem.childNodes.item(0).value);
+        video.currentTime = startTime;
+        play();
+        pause();
+    
+    }
+    
+    
+        function getCheckedLabelValue() {
+            var retVal = 'Transition';
+            // var labelGroupEle = document.getElementsByName("labelGroup");
+            // for( var i = 0; i < labelGroupEle.length; i++) {
+            //     if( labelGroupEle[i].checked == true ) {
+            //         retVal = labelGroupEle[i].value;
+            //         break;
+            //     }
+            // }
+            return retVal;
+        }
+        function restartForRightHand(divName){
+            //if (label_value == "separator") {
+              if (hand == 'left'){
+                document.getElementById("gesture_label").innerHTML = "Right Hand Gesture"
+                document.getElementById("which_hand").innerHTML = 'Right Hand'
+                document.getElementById("transition").innerHTML = 'Right Hand Transition'
+                //startTimeText="0"
+                gotoStart()
+            hand = 'right'
+                alert("Now Annotate phases of the person's RIGHT HAND")
+            //}
+        annotateOrUpdate(divName, true)
+        }
+        else {
+                document.getElementById("transition").innerHTML = 'Transition'
+                //startTimeText="0"
+                gotoStart()
+            hand = 'left'
+                alert("Now Annotate phases of the person's LEFT HAND")
+        annotateOrUpdate(divName, true)
+        }
+            }
+        function annotateOrUpdate(divName, separator = false) {
+            if( annotEditMode == true ) {
+                if( isValidSelection(separator) == true || separator == true) {
+                    var annotEle = document.getElementById(editAnnotID);
+                    // Assumes the first, second and third elements are start time, end time and opinions, respectively.
+                    /*
+                    annotEle.childNodes[0].value = startTimeText.value;
+                    annotEle.childNodes[1].value = endTimeText.value;
+                    annotEle.childNodes[2].value = getCheckedLabelValue();
+                     */
+                    annotEle.childNodes[0].value = startTimeText.value;
+                    annotEle.childNodes[1].value = getCheckedLabelValue();
+                    exitUpdateMode();
+                }
+            }
+            else {
+                if( isValidSelection(separator) == true || separator == true) {
+                    //restartForRightHand(getCheckedLabelValue()) // if the annotated label is separator, switch to right hand
+                    annotCnt = annotCnt + 1;
+                    annotID = "annot" + annotCnt;
+                    var newdiv = document.createElement("div");
+            var labelValue = getCheckedLabelValue();
+            if (separator == true) {
+                       labelValue = 'switch'
+            }
+                    newdiv.setAttribute("id", annotID);
+                    // changing the order of the inputs below will affect "editAnnotation(divName, annotID)" function
+                    newdiv.innerHTML = '<input class="annotationTimeList" type="text"  name="startTimeList" readonly="readonly" value="' + startTimeText.value + '">';
+                    //newdiv.innerHTML = newdiv.innerHTML + '<input class="annotationTimeList" type="text" name="endTimeList" readonly="readonly" value="' + endTimeText.value + '">';
+                    newdiv.innerHTML = newdiv.innerHTML + '<input class="annotationOpinionList" type="text" name="opinionList" readonly="readonly" value="' + labelValue + '">';
+                    // newdiv.innerHTML = newdiv.innerHTML + '<input value="Play" onclick="playSelection(\'' + annotID + '\')" type="button">';
+                    // newdiv.innerHTML = newdiv.innerHTML + '<input value="Set Replay Start" onclick="setSelectedStartTimeText2(\'' + annotID + '\')" type="button">';
+                    //newdiv.innerHTML = newdiv.innerHTML + '<input value="Set Replay End" onclick="setSelectedEndTimeText2(\'' + annotID + '\')" type="button">';
+                    newdiv.innerHTML = newdiv.innerHTML + '<input value="Go Here" onclick="playSelection3(\'' + annotID + '\')" type="button">';
+                    newdiv.innerHTML = newdiv.innerHTML + '<input value="Edit" onclick="editAnnotation(\'' + divName + '\', \'' + annotID + '\')" type="button">';
+                    newdiv.innerHTML = newdiv.innerHTML + '<input value="X" onclick="removeAnnotate(\'' + divName + '\', \'' + annotID + '\')" type="button">';
+                    document.getElementById(divName).appendChild(newdiv);
+                    clearSetStartTimeText();
+                    //clearSetEndTimeText();
+                    clearCheckedLabel();
+                    document.getElementById("annotationListOuterArea").scrollTop = document.getElementById("annotationListOuterArea").scrollHeight + 100;
+                    document.getElementById("annotationListOuterArea").scroll = document.getElementById("annotationListOuterArea").scrollTop;
+                } else {
+                    //alert("no valid selection.");
+                }
+            }
+        }
+        function exitUpdateMode() {
+            // Take care of the previous selection of annotation edit
+            if( (annotEditMode == true) && (editAnnotID != null) ) {
+                var prevAnnotEle = document.getElementById(editAnnotID);
+                prevAnnotEle.childNodes[0].style.color = "black";
+                prevAnnotEle.childNodes[1].style.color = "black";
+                //prevAnnotEle.childNodes[2].style.color = "black";
+            }
+            annotEditMode = false;
+            editAnnotID = null;
+            clearSetStartTimeText();
+            //clearSetEndTimeText();
+            clearCheckedLabel();
+            // Change the button text and layout in the annotation buttom area.
+            document.getElementById("b_annotate").value = "Annotate";
+            document.getElementById("b_cancel").style.visibility = "hidden";
+        }
+        function editAnnotation(divName, annotID){
+            // Take care of the previous selection of annotation edit
+            if( (annotEditMode == true) && (editAnnotID != null) ) {
+                var prevAnnotEle = document.getElementById(editAnnotID);
+                prevAnnotEle.childNodes[0].style.color = "black";
+                prevAnnotEle.childNodes[1].style.color = "black";
+                //prevAnnotEle.childNodes[2].style.color = "black";
+            }
+            annotEditMode = true;
+            editAnnotID = annotID;
+            // Retrieve the annotation information back to the control area.
+            var annotEle = document.getElementById(annotID);
+            // Assumes the first, second and third elements are start time, end time and opinions, respectively.
+            startTimeText.value = annotEle.childNodes[0].value;
+            //endTimeText.value = annotEle.childNodes[1].value;
+            var labelGroupEle = document.getElementsByName("labelGroup");
+            for( var i = 0; i < labelGroupEle.length; i++) {
+                if( labelGroupEle[i].value == annotEle.childNodes[1].value ) {
+                    labelGroupEle[i].checked = true;
+                    break;
+                }
+            }
+            annotEle.childNodes[0].style.color = "red";
+            annotEle.childNodes[1].style.color = "red";
+            //annotEle.childNodes[2].style.color = "red";
+            // Change the button text and layout in the annotation buttom area.
+            document.getElementById("b_annotate").value = "Update";
+            document.getElementById("b_cancel").style.visibility = "visible";
+        }
+        function removeAnnotate(divName, annotID) {
+            if(annotEditMode == true) {
+                exitUpdateMode();
+            }
+            if( annotCnt > 0 ) {
+                if( annotID == "last") { //remove last annotation
+                    document.getElementById(divName).removeChild( document.getElementById(divName).lastChild );
+                }
+                else {
+                    document.getElementById(divName).removeChild( document.getElementById(annotID));
+                }
+                annotCnt = annotCnt-1;
+            }
+        }
+        function displayVideoCurrentTime() {
+            var tempCurrentTimeStr = String( video.currentTime );
+            tempCurrentTimeStr = tempCurrentTimeStr.substring(0, tempCurrentTimeStr.indexOf('.') + 5);
+            currentTimeText.value = tempCurrentTimeStr;
+        }
+        function checkAndPauseSelectionPlay() {
+            if( toggleIsPlayingSelection == true ) {
+                if( video.currentTime >= playingAndSetEndTime ) {
+                    pause();
+                    toggleIsPlayingSelection = false;
+                }
+            }
+        }
+        function hideShowInstructions() {
+            if( toggleIsHideInst == true ) {
+                instructionElement.style.display = "";
+                toggleIsHideInst = false;
+            }
+            else {
+                instructionElement.style.display = "none";
+                toggleIsHideInst = true;
+            }
+        }
+        function adjustVideoWithSlider() {
+            if( toggleIsPlay == true ) {
+                pause();
+            }
+            var direction = "forward";
+            var sliderVal = mySliderBar.value;
+            if( sliderVal < 0 ) {
+                direction = "backward";
+            }
+            moveCurrentTime(direction, "second", Math.abs(sliderVal), true);
+            //var scrollWidth = document.getElementById("sss").scrollWidth;
+            //var scrollLeft = document.getElementById("sss").scrollLeft;
+            //startTimeText.value = String( Math.floor((scrollLeft / scrollWidth) * 29.97) );
+            //moveCurrentTime("backward", "frame", Math.floor((scrollLeft / scrollWidth) * 29.97));
+        }
+        function resetSliderPosition() {
+            mySliderBar.value = 0;
+        }
+    // Different ways of calling the init() function for IE or Firefox
+    var browserName=navigator.appName;
+    if(browserName=="Microsoft Internet Explorer") {
+        window.onload=init;
+    }
+    else {
+        if (document.addEventListener) {
+            document.addEventListener("DOMContentLoaded", init, false);
+        }
+    }
+     /*
+        function OutputText() {
+            var annotObj = document.getElementById("annotationListInnerArea");
+            var annotList = annotObj.childNodes;
+            for( var i = 0; i < annotList.length; i++) {
+                if (i > 8) {
+                    var eles = annotList[i].childNodes;
+                    var start = eles[0].value;
+                    //var end = eles[1].value;
+                    var cat = eles[1].value;
+                    //outText = outText + start + "," + end + "," + cat + "@";
+                    outText = outText + start + "," + cat + "@";
+                }
+            }
+            var blob = new Blob(["\uFEFF", outText]);
+            if(window.navigator.msSaveBlob)
+            {
+                // for IE
+                window.navigator.msSaveBlob(blob, "acuwD58VByg_left.txt");
+            } else {
+                // for other browsers
+                var a = document.createElement("a");
+                a.href = URL.createObjectURL(blob);
+                a.target = '_blank';
+                a.download = 'acuwD58VByg_left.txt';
+                a.click();
+            }
+            outText = "@";
+        }
+        */
+    </script>
+            <b>Please annotate the END of every slide!</b>
+            <crowd-instructions link-text="Read the instructions and watch example video before starting" link-type="button">
+            <short-summary>
+                <!-- <p>Please leave your feedback here: <a href="https://forms.gle/8uSBqXfUhTzCSvbR9" target="_blank">Link to Feedback Form</a></p> -->
+                <p>The task is to find the transitions between each slide in the lecture video.</b></p>
+
+                <p>Check the <b>Detailed</b> tab for specific instructions</p>
+    
+    
+            </short-summary>
+    
+            <feedback>
+                <p>Check the <b>Detailed</b> tab for instructions</p>
+            </feedback>
+    
+    
+            <detailed-instructions>
+
+                <p>Find exact <b>transition points</b> between slides in the lecture video. </p>
+                <p> <b>Important:</b> Annotate the </b>end</b> of every slide!</p> 
+    
+                <p>We define transition point as the end of the current slide, i.e. the last frame before the speaker moves to the next slide. </p>
+
+
+                <p> <b>Important: Do NOT watch the entire video!</b> Instead, use the slider on the video to find the transitions, for more deatils check out the Examples Tab.</p>
+                <p>When you find the transition point, stop the video and click on <input id="b_annotate_dummy" class="annotateButton" value="Annotate" type="button"></p>
+                <p>Your annotations will show up on the right side of the video. If you think you have made a mistake, you can edit the start time or the type of phase by clicking <input id="b_annotate_dummy3" class="annotateButton" value="Edit" type="button">  next to the annotation.</p>
+                <p>You can also go back to the exact point in your annotations by clicking <input id="b_annotate_dummy" class="annotateButton" value="Go Here" type="button">  next to the annotation.</p>
+                <p> After annotating all the transitions, click on <input id="b_annotate_dummy2" class="annotateButton" value="Submit" type="button"> to complete the HIT. We will be judging (and eventually approving the HIT) the quality of the annotations based on the accuracy of the annotations.</p>
+                <p>A slide transition should only be counted when the <b>full</b> slide changes to another slide. Do not count animations or new text animations on the same slide as a new slide transition.</p>
+                <p>Some lectures may switch to a video mid-presentation. Please only count this as one slide transition.</p>
+
+                
+                <p> <b>Important: It may be easier to zoom out, by pressing Ctrl (or Cmd) key and pressing the - (minus key)</b> </p> 
+
+
+                <p> <b>Important: Please watch the Example video for more details</b> </p> 
+                
+                <p> <b>Important: Doing well on this initial task will lead to more tasks of the same nature in the future.</b> </p> 
+            </detailed-instructions>
+    
+            <positive-example>
+               Please view the following video for an example of how you should be annotating: A 1 hour video should take less than 15 minutes:<br>
+              <video width="400" controls>
+                    <source src="https://groot-evaluation.s3.amazonaws.com/0_examples/slide_seg.mp4" type="video/mp4">
+                </video>
+            </positive-example>
+
+    
+        </crowd-instructions>
+    
+    <div id="pageContainer">
+        <!--div id="instructions">
+            <input id="b_hideShowInstructions" class="hideShowInstructionsButton" value="Hide/Show Instructions" onclick="hideShowInstructions()" type="button">
+            <img id="instructionsImg" src="http://www.ict.usc.edu/~park/instructions_pilot_test2.jpg"></img>
+        </div-->
+    
+        <div id="movieArea">
+            <video tabindex="0" id="video" controls="controls" onmouseup="movieControlSeeked()" onplay="movieControlPlay()" onpause="movieControlPause()" width=900 height=600 >
+                
+                <!--<source src="https://groot-evaluation.s3.amazonaws.com/full_vid/bio-1/g1JIbOMWBBM.mp4" type="video/mp4">-->
+    
+                 <source src="${video_url}" type="video/mp4"> 
+                
+                <!--<source src="./acuwD58VByg.mp4" type="video/mp4">-->
+                <!--<source src="./test1.mp4" type="video/mp4">-->
+                <!--source src="file:///C:/Users/park/Desktop/010_f7e91xGHQJ8_x264.mp4" type="video/mp4"-->
+                <!--source src="file:///C:/Users/park/Desktop/pilot_test_1_libtheora.ogv" type="video/ogg"-->
+            </video>
+        </div>
+    
+    
+        <div id="annotationListOuterArea">
+    
+            <div id="annotationListInnerArea">
+                <input class="annotationTimeList" type="text" name="startTimeList" readonly="readonly" value="Start Time">
+                <!--<input class="annotationTimeList" type="text" name="endTimeList" readonly="readonly" value="End Time">-->
+                <input class="annotationOpinionList" type="text" name="opinionList" readonly="readonly" value="Category">
+                <hr>
+            </div>
+    
+            <!--input id="b_removeAnnotation" value="Undo Last Annotation" onclick="removeAnnotate('annotationListInnerArea', -1)" type="button"-->
+        </div>
+    
+    
+        <div id="movieControlArea">
+            <div id="timeDisplayArea">
+            <label for="l_label_currentTime">Current Time: </label>
+            <input id="t_currentTimeText" class="timeDisplayText" value="" disabled="disabled" type="text">
+            </div>
+            <!--input id="b_gotoStart" value="Start" onclick="gotoStart()" type="button"-->
+            <input id="b_playOrPause" class="playOrPauseButton" value="Play/Pause" onclick="playOrPause()" type="button">
+    
+            <div id="sliderArea">
+                <label class="sliderLabels" style="visibility:hidden" for="l_label_minus2Secs">-3 secs</label>
+                <input id="sliderBar" style="visibility:hidden" class="sliderBar" type="range" min="-3.0" max="3.0" value="0" step=".04" onchange="adjustVideoWithSlider()">
+                <label class="sliderLabels" style="visibility:hidden" for="l_label_plus2Secs">+3 secs</label>
+        </div>
+            <input id="b_backwardOneSec" class="movieControls" value="<< 10 sec" onclick="moveCurrentTime('backward', 'second', 10, false)" type="button">
+            <input id="b_backwardOneSec" class="movieControls" value="<< 5 sec" onclick="moveCurrentTime('backward', 'second', 5, false)" type="button">
+            <input id="b_backwardOneSec" class="movieControls" value="<< 1 sec" onclick="moveCurrentTime('backward', 'second', 1, false)" type="button">
+            <input id="b_backwardOneFrame" class="movieControls" value="<< 0.5 sec" onclick="moveCurrentTime('backward', 'second', 0.5, false)" type="button">
+            <input id="b_forwardOneFrame" class="movieControls" value=">> 0.5 sec" onclick="moveCurrentTime('forward', 'second', 0.5, false)" type="button">
+            <input id="b_forewardOneSec" class="movieControls" value=">> 1 sec" onclick="moveCurrentTime('foreward', 'second', 1, false)" type="button">
+            <input id="b_forewardOneSec" class="movieControls" value=">> 5 sec" onclick="moveCurrentTime('foreward', 'second', 5, false)" type="button">
+            <input id="b_forewardOneSec" class="movieControls" value=">> 10 sec" onclick="moveCurrentTime('foreward', 'second', 10, false)" type="button">
+    
+            <div id="setSelectedPlayArea">
+                <input id="b_setStartTime" style="visibility:hidden" class="movieSlectButtons" value="Set Play Start" onclick="setSelectedStartTimeText()" type="button">
+                <input id="t_startSelectedTimeText" style="visibility:hidden" class="selectedTimeTextArea" value="" disabled="disabled" type="text">
+                <input id="b_clearStartTimeText" style="visibility:hidden" class="selectedTimeClearButtons" value="X" onclick="clearSetPlayStartTimeText()" type="button">
+    
+                <input id="b_setEndTime" style="visibility:hidden" class="movieSlectButtons" value="Set Play End" onclick="setSelectedEndTimeText()" type="button">
+                <input id="t_endSelectedTimeText" style="visibility:hidden" class="selectedTimeTextArea" value="" disabled="disabled" type="text">
+                <input id="b_clearStartTimeText" style="visibility:hidden" class="selectedTimeClearButtons" value="X" onclick="clearSetPlayStartTimeText()" type="button">
+    
+                <input id="b_playSelection" style="visibility:hidden" class="movieSlectButtons" value="Play Selection" onclick="playSelection()" type="button">
+                <label for="l_label_duration" style="visibility:hidden" >Duration: </label>
+                <input id="t_durationText" style="visibility:hidden" class="selectedTimeTextArea" value="" disabled="disabled" type="text">
+    
+            <!--input id="b_gotoEnd" value="End" onclick="gotoEnd()" type="button"-->
+    
+            <!-- HACK: use disabled buttons for labels (to fix)-->
+            <!--
+            <div id="movieControlLabelArea">
+                <input class="movieControlLabels" disabled="disabled" type="button" value="w">
+                <input class="movieControlLabels" disabled="disabled" type="button" value="a">
+                <input class="movieControlLabels" disabled="disabled" type="button" value="s">
+                <input class="movieControlLabels" disabled="disabled" type="button" value="d">
+                <input class="movieControlLabels" disabled="disabled" type="button" value="f">
+            </div>
+            -->
+            </div>
+        </div>
+    
+        <div id="mainAnnotControlArea">
+            
+    
+            <div id="annotateButtonArea">
+                <div id="setStartTimeArea">
+                        <input id="b_setStartTime" style="visibility:hidden" class="annotControlButtons" value="Set Phase Start Time" onclick="setStartTimeText()" type="button">
+                        <input id="t_startTimeText" style="visibility:hidden"class="selectedTimeTextArea" value="" disabled="disabled" type="text">
+                        <input id="b_clearStartTimeText" style="visibility:hidden" class="selectedTimeClearButtons" value="X" onclick="clearSetStartTimeText()" type="button">
+                </div>
+                <input id="b_annotate" class="annotateButton" value="Annotate" onclick="setStartTimeText(); annotateOrUpdate('annotationListInnerArea')" type="button">
+            <br>
+                <input id="b_cancel" style="visibility:hidden" class="cancelButton" value="Cancel" onclick="exitUpdateMode()" type="button">
+                <!-- <input id="save" class="saveButton" value="Annotation Upload" onclick="OutputText()" type="button"> -->
+            </div>
+        </div>
+    
+    
+        <div id="hotkeyInstArea">
+            <b>Keyboard Hotkeys</b><br/>
+            <table>
+                <tr>
+                    <td>Play/Pause&nbsp;&nbsp;==> f<br/></td>
+                    <!-- <td>Set Start Time ==> s<br/></td> -->
+                </tr>
+                <tr>
+                    <td>>> 0.5 sec &nbsp;&nbsp;&nbsp;==> right arrow key<br/></td>
+                    <!-- <td>Annotate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;==> a<br/></td> -->
+                </tr>
+                <tr>
+                    <td><< 0.5 sec&nbsp;&nbsp;&nbsp;==> left arrow key<br/></td>
+                </tr>
+            </table>
+        </div>
