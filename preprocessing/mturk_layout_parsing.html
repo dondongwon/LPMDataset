@@ -1,0 +1,120 @@
+<!-- You must include this JavaScript file -->
+<script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+
+<!-- For the full list of available Crowd HTML Elements and their input/output documentation,
+      please refer to https://docs.aws.amazon.com/sagemaker/latest/dg/sms-ui-template-reference.html -->
+
+<!-- You must include crowd-form so that your task submits answers to MTurk -->
+<crowd-form answer-format="flatten-objects">
+    <b>Please read instructions before continuing with this task!</b>
+    <p>Annotators that perform well on this task will be assigned additional tasks of this same nature.</p>
+
+    <!-- The crowd-bounding-box element will create a tool for the Worker to draw 
+           labeled boxes around the specified objects in your image.
+
+          Your image file URLs will be substituted for the "image_url" variable below 
+          when you publish a batch with a CSV input file containing multiple image file URLs.
+          To preview the element with an example image, try setting the src attribute to
+          "https://s3.amazonaws.com/cv-demo-images/two-birds.jpg" -->
+    <crowd-bounding-box 
+        src="${aws_link}"
+        labels="['Image', 'Diagram', 'Table', 'Equation']"
+        header="Draw bounding boxes around the requested items"
+        name="annotatedResult">
+
+        <!-- Use the short-instructions section for quick instructions that the Worker
+              will see while working on the task. Including some basic examples of 
+              good and bad answers here can help get good results. You can include 
+              any HTML here. -->
+        <short-instructions>Draw bounding boxes around the regions on the slide.
+        <br>
+        <p><b>Each annotation should take less than 30 seconds!</b></p>
+        <br>
+        <p><b>Annotations will be checked for quality and accuracy.</b></p>
+        <br>
+        <p><b>More assignments are to follow for requesters who do well on this preliminary task!</b></p>
+        <br>
+        <p><b>Please click more instructions for additional details and examples of good and bad annotations!  </b></p>
+
+        
+        
+         </b></short-instructions>
+
+        <!-- Use the full-instructions section for more detailed instructions that the 
+              Worker can open while working on the task. Including more detailed 
+              instructions and additional examples of good and bad answers here can
+              help get good results. You can include any HTML here. -->
+        <full-instructions header="Bounding Box Instructions">
+            <p>Use the bounding box tool to draw bounding boxes over the requestsed regions, if they appear on the slide :</p>
+            
+            <p>Shown below are the definitions for each requested region</p>
+            <ol>
+              	<li>Images: photographs of natural images, can contain text </li>
+              	
+              	<image src = https://groot-evaluation.s3.amazonaws.com/mturk_experiments/image_1.png> </image>
+              	<image src = https://groot-evaluation.s3.amazonaws.com/mturk_experiments/image_2.png> </image>
+
+              	
+              	
+               	<li>Diagram: man-made diagrams, figures, flow chart, can contain text</li>
+               	
+              	<image src = https://groot-evaluation.s3.amazonaws.com/mturk_experiments/diagram_1.png width="300" height="200"> </image>
+              	<image src = https://groot-evaluation.s3.amazonaws.com/mturk_experiments/diagram_2.png width="300" height="250"> </image>
+
+               	
+               	
+                <li>Table: arrangement of information or data, typically in rows and columns, can contain text</li>
+                
+              	<image src = https://groot-evaluation.s3.amazonaws.com/mturk_experiments/table_1.png width="300" height="80"> </image>
+                
+                
+                <li>Equation: formula or math equation, can contain text</li>
+                
+              	<image src = https://groot-evaluation.s3.amazonaws.com/mturk_experiments/formula_1.png width="300"> </image>
+              	<image src = https://groot-evaluation.s3.amazonaws.com/mturk_experiments/formula_2.png> </image>
+
+                
+                
+            </ol>
+            
+            
+            <p>Annotation Instructions</p>
+            <ol>
+              	<li>To draw a bounding box click the correct label, and draw a rectangle using your mouse over each instance of the target.</li>
+               	<li>If the target goes off the screen, label up to the edge of the image.</li>
+                <li>Capture each distinct image that is on the slide.</li>
+                <li>Do not mark logos or other images that do not add informative content to the topic of the slide.</li>
+                <li>Only capture slide images - do not mark speaker faces or videos stills that may have been played on a slide</li>
+                <li>If there is nothing to label, mark the checkbox "Nothing to Label" next to the submit button</li>
+                <li>You can delete an annotation by clicking the bounding box you just made and pressing delete on your keyboard.</li>
+            </ol>
+
+
+        <b>Good Annotation</b>
+        <p>
+        <image src="https://groot-evaluation.s3.amazonaws.com/mturk_experiments/good_image.png" width="500" height="300"></image>
+        <p>This image is considered good, because each formula, diagram, and image is labelled accurately.</p>
+        <image src="https://groot-evaluation.s3.amazonaws.com/mturk_experiments/good_image_6.png" width="500" height="300"></image>
+        <p>This image is considered good, because each distinct diagram is captured.</p>
+        <image src="https://groot-evaluation.s3.amazonaws.com/mturk_experiments/good_image_3.png" width="500" height="300"></image>
+        <p>This image is considered good, because all diagrams are represented as different diagrams instead of one large diagram.</p>
+        <image src="https://groot-evaluation.s3.amazonaws.com/mturk_experiments/good_image_4.png" width="500" height="300"></image>
+        <p>This image is considered good, because the text of a diagram is not captured in the diagram.</p>
+        </p>
+        <b>Bad Annotation</b>
+        <p>
+        <image src="https://groot-evaluation.s3.amazonaws.com/mturk_experiments/bad_image.png" width="500" height="300"></image>
+        <p>This image is considered bad, because the logos or text that does not relate to the content of the slide are captured as images.</p>
+        <image src="https://groot-evaluation.s3.amazonaws.com/mturk_experiments/bad_image_1.png" width="500" height="300"></image>
+        <p>This image is considered bad, because the text is represented as an image.</p>
+        <image src="https://groot-evaluation.s3.amazonaws.com/mturk_experiments/bad_image_3.png" width="500" height="300"></image>
+        <p>This image is considered bad, because multiple diagrams are captured as one diagram. This should instead have 3 different bounding boxes for the diagram</p>
+        <image src="https://groot-evaluation.s3.amazonaws.com/mturk_experiments/bad_image_4.png" width="500" height="300"></image>
+        <p>This image is considered bad, because pointer text is captured in the diagram, the diagram should be limited to just the figure without extraneous text.</p>
+        <image src="https://groot-evaluation.s3.amazonaws.com/mturk_experiments/bad_image_5.png" width="500" height="300"></image>
+        <p>This image is considered bad, because the wrong label is used(image) and the full diagram is not captured - only a part of the diagram is captured</p>
+        </p>
+        </full-instructions>
+
+    </crowd-bounding-box>
+</crowd-form>
