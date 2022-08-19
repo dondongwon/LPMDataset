@@ -5,31 +5,6 @@ This is the official repository for the *Multimodal Lecture Presentations (MLP) 
 The dataset can be downloaded here: [Download](https://drive.google.com/file/d/13aDrmStlaSDFpacSXMOH1M5gaTo0i8c-/view?usp=sharing)
 
 
-In the dataset, you will find:
-```
-data
-│   raw_video_links.csv - contains the slide segmentations, number of seconds, video_id, youtube_url, slide annotation containing learning objectives)
-│   figure_annotations.csv - the save_directory path, ocr output, the bounding boxes and labels) 
-│
-└───{speaker}
-    │   {speaker}.json - contains comprehensive data dictionary, where each datapoint corresponds to a slide 
-    │   {speaker}_figs.json - contains dictionary where each datapoint corresponds to a figure
-    │   {speaker}_capfig.json - a dictionary that maps the keys of {speaker}.json to {speaker}_figs.json, such that we can map the captions to the multiple figures
-│   │
-│   └───{lecture name or "unordered"} - a folder for each leacture series or 'unordered' (if videos are not from a consecutive series)
-│       │   slide_{number}.jpg - image of the slide
-│       │   slide_{number}_ocr.jpg - ocr of the slide
-│       │   slide_{number}_spoken.jpg - spoken language of the slide
-│       │   slide_{number}_trace.jpg - extracted mouse traces for slide
-│       │   ...
-│       │   segments.txt - the annotated slide transition segments
-│       │   {video_id}_transcripts.csv - the google ASR transcriptions of spoken language
-│       │   slide_{number}_ocr.jpg - ocr of the slide
-└─── ...
-
-```
-
-
 
  [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
  
@@ -76,6 +51,34 @@ As a step towards this direction, MLP dataset contains over 9000 slides with nat
 
 
 MLP Dataset and its tasks bring new research opportunities through the following technical challenges: (1) addressing weak crossmodal alignment between figures and spoken language (a figure on the slide is often related to only a portion of spoken language), (2) representing novel visual mediums of man-made figures (e.g., diagrams, tables, and equations), (3) understanding technical language, and (4) capturing interactions in long-range sequences. Furthermore, it offers novel challenges that will spark future research in educational content modeling, multimodal reasoning, and question answering.
+
+
+## Dataset Structure
+
+In the dataset, you will find:
+```
+data
+│   raw_video_links.csv - contains the slide segmentations, number of seconds, video_id, youtube_url, slide annotation containing learning objectives)
+│   figure_annotations.csv - the save_directory path, ocr output, the bounding boxes and labels) 
+│
+└───{speaker}
+    │   {speaker}.json - contains comprehensive data dictionary, where each datapoint corresponds to a slide 
+    │   {speaker}_figs.json - contains dictionary where each datapoint corresponds to a figure
+    │   {speaker}_capfig.json - a dictionary that maps the keys of {speaker}.json to {speaker}_figs.json, such that we can map the captions to the multiple figures
+│   │
+│   └───{lecture name or "unordered"} - a folder for each leacture series or 'unordered' (if videos are not from a consecutive series)
+│       │   slide_{number}.jpg - image of the slide
+│       │   slide_{number}_ocr.jpg - ocr of the slide
+│       │   slide_{number}_spoken.jpg - spoken language of the slide
+│       │   slide_{number}_trace.jpg - extracted mouse traces for slide
+│       │   ...
+│       │   segments.txt - the annotated slide transition segments
+│       │   {video_id}_transcripts.csv - the google ASR transcriptions of spoken language
+│       │   slide_{number}_ocr.jpg - ocr of the slide
+└─── ...
+
+```
+
 
 ## Paper
 
