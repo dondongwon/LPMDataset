@@ -5,7 +5,7 @@
 - [x] Pyscene Detect 
 - [x] Layout Parser
 - [x] Google ASR
-- [ ] Extract Frames
+- [x] Extract Frames
 - [x] Get Traces
 
 
