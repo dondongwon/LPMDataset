@@ -20,8 +20,9 @@ We thank the reviewers for their insightful comments regarding the github repo. 
 - [x] (Reviewer MsAX, GHav) Include requirements.txt
 - [x] (Reviewer S6Me) Include metadata on learning objectives - can be found in the video_links.csv in the dataset
 
-- [ ] (Reviewer MsAX) Clearer instructions on how to handle this dataset, what corresponds to 1 example of the dataset - what is the primary key?
-- [ ] (Reviewer MsAX) Update readme to include how to reconsititute the splits of train and test (include references to code line number)
+- [x] Structure of Dataset 
+- [x] (Reviewer MsAX) Clearer instructions on how to handle this dataset, what corresponds to 1 example of the dataset - can be found in examples/quickstart.ipynb
+
 
 - [ ] (Reviewer FPNg, GHav) Dataset Extension: Include prepocessing tools, as well as automatic preprocessing steps (LayoutParser, PysceneDetect)
 - [ ] (Reviewer FPNg, GHav) Dataset Extension: Include manual annotation scripts (MTurk javascript code)
@@ -29,6 +30,7 @@ We thank the reviewers for their insightful comments regarding the github repo. 
 - [ ] Script to run experiments
 - [ ] (Reviewer S6Me, GHav) script to run across all different subjects 
 - [ ] (Reviewer GHav) Ablation scripts (no image, no text)
+- [ ] (Reviewer MsAX) how to reconsititute the splits of train and test (include references to code line number)
 
 
 # Overview
