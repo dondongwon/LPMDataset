@@ -2,10 +2,12 @@
 
 - [ ] (Reviewer FPNg, GHav) Dataset Extension: Include prepocessing tools, as well as automatic preprocessing steps (LayoutParser, PysceneDetect)
 - [x] Download video script
-- [ ] Pyscene Detect 
-- [ ] Layout Parser
-- [ ] Google ASR
+- [x] Pyscene Detect 
+- [x] Layout Parser
+- [x] Google ASR
 - [ ] Extract Frames
+- [x] Get Traces
+
 
 
 - [ ] (Reviewer FPNg, GHav) Dataset Extension: Include manual annotation scripts (MTurk javascript code)
