@@ -25,6 +25,7 @@ We thank the reviewers for their insightful comments regarding the github repo. 
 - [ ] (Reviewer FPNg, GHav) Dataset Extension: Include prepocessing tools, as well as automatic preprocessing steps (LayoutParser, PysceneDetect)
 - [ ] (Reviewer FPNg, GHav) Dataset Extension: Include manual annotation scripts (MTurk javascript code)
 
+- [ ] Script to run experiments
 - [ ] (Reviewer S6Me, GHav) script to run across all different subjects 
 - [ ] (Reviewer GHav) Ablation scripts (no image, no text)
 
