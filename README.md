@@ -84,6 +84,9 @@ data
 
 ```
 
+## Extend Dataset
+
+For those interested in extending the dataset, please check our `/preprocessing` directory. We have provided details steps to do so. 
 
 ## Train  model
 
