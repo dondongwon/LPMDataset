@@ -26,8 +26,7 @@ We use the provided MTurk `mturk_layout_parsing.html` to collect slide end segme
 diagrams, table, and equations. In Appendix D of our main paper we provide details on figure class labels and a screenshot of the MTurk experiment. Afterwards we use `ocr.py` to extract the written text on the slide, it takes in a in a directory path with the images of each slide and outputs a pickle file with dictionary containing the strings and location values.
 
 
-
-![](/images/preproc_auto_1.png)
+![](/images/preproc_auto_2.png)
 
 
 - [x] (Reviewer FPNg, GHav) Dataset Extension: Include prepocessing tools, as well as automatic preprocessing steps (LayoutParser, PysceneDetect)
