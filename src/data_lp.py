@@ -9,7 +9,6 @@ import numpy as np
 import json as json
 import pickle5 as pickle
 import ast
-import video_transforms
 import torch
 import torch.utils.data as data
 import torchvision.transforms as transforms
@@ -291,6 +290,27 @@ class LPEvalDataset_CLIP(LPDataset):
     return image, target, index, img_id
 
 
+def collate_fn(data, caption_lim = 512):
+  # Sort a data list by sentence length
+    data.sort(key=lambda x: len(x[1]), reverse=True)
+    images, spoken_target, ocr_target, index, img_ids = zip(*data)
+    # Merge images (convert tuple of 3D tensor to 4D tensor)
+    images = torch.stack(images, 0)
+
+    cap_lengths = torch.tensor([len(cap) if len(cap) <= caption_lim else caption_lim for cap in spoken_target])
+    spoken_output = torch.zeros(len(spoken_target), caption_lim).long()
+    
+
+    for i, cap in enumerate(spoken_target):
+      end = cap_lengths[i]
+      if end <= caption_lim:
+        spoken_output[i, :end] = cap[:end]
+      else:
+        cap_lengths[i] = caption_lim
+        spoken_output[i, :end] = cap[:caption_lim]
+      return images, spoken_output, ocr_target, cap_lengths, index, img_ids
+
+
 def get_loaders(cap_json, fig_json, connect_json, vocab, root_dir, bs, wemb_type, model_type, split = 'train'):
   num_w = 4
   bs = bs
@@ -396,6 +416,9 @@ def get_loaders(cap_json, fig_json, connect_json, vocab, root_dir, bs, wemb_type
                                             num_workers=num_w,
                                             collate_fn = collate_fn
                                             )
+  elif split == "dataset":
+    dataset = LPDataset(cap_json, fig_json, connect_json, vocab, root_dir, wemb_type, transform)
+    return dataset, collate_fn_vilt
 
   else:
     dataset = LPDataset(cap_json, fig_json, connect_json, vocab, root_dir, wemb_type, transform)
