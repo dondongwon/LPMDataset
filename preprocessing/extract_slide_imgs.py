@@ -9,7 +9,11 @@ import os
 import shutil
 
 
-def cp_transcript_extract_frames(fin_df):
+#'Answer.startTimeList','video_id' is provided in raw_video_links
+# Please create a column named 'saved_dir', where each video is saved to in the same csv
+
+
+def extract_frames(fin_df):
     for index, row in fin_df.iterrows():
         
         video_path = row['saved_dir']
@@ -42,5 +46,5 @@ args = parser.parse_args()
 
 path_to_df_w_saved_times = args.base_path
 df = pd.read_csv(path_to_df_w_saved_times)
-cp_transcript_extract_frames(df)
+extract_frames(df)
         
