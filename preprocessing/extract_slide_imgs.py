@@ -31,18 +31,6 @@ def cp_transcript_extract_frames(fin_df):
             frame_capture ="ffmpeg -ss {time_string} -i {input} -q:v 1 -qmin 1 -qmax 1 {output_save}".format(input = video_path, time_string = time[:-1], output_save = output_save)
             subprocess.call(frame_capture, shell = True)
             print(video_path)
-            display(Image.open(output_save))
-            pdb.set_trace()
-    
-#         for idx, time in enumerate(video_split):
-#             dir_path = os.path.dirname(video_path)
-#             output_save = os.path.join(tgt_dir_path, "slide_{}.jpg".format(str(idx).zfill(3)))
-#     #         time_string = str(datetime.timedelta(seconds=float(time)))[:-3]
-#     #         if not os.path.exists(output_save):
-
-#             frame_capture ="ffmpeg -ss {time_string} -i {input} -frames:v 1 -q:v 2 {output_save}".format(input = video_path, time_string = time[:-1], output_save = output_save)
-#             subprocess.call(frame_capture, shell = True)
-#     #         display(Image.open(output_save))
 
 
 
