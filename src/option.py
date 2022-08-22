@@ -6,7 +6,7 @@ parser = argparse.ArgumentParser(description='Parameters for training PVSE')
 CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Names, paths, logging, etc
-parser.add_argument('--data_name', default='ml-1', choices=("anat-1", "bio-1", "bio-3", "dental", "ml-1", "psy-2", "anat-2",  "bio-2", "bio-4", "psy-1", "speaking"), help='Dataset name (coco|tgif|mrw)')
+parser.add_argument('--data_name', default='ml-1', choices=("anat-1", "bio-1", "bio-3", "dental", "ml-1", "psy-2", "anat-2", "bio-4", "psy-1", "speaking", "all"), help='Dataset name (coco|tgif|mrw)')
 parser.add_argument('--data_path', default=CUR_DIR+'/data/', help='path to datasets')
 parser.add_argument('--vocab_path', default=CUR_DIR+'/vocab/', help='Path to saved vocabulary pickle files')
 parser.add_argument('--logger_name', default=CUR_DIR+'/runs/runX', help='Path to save the model and logs')
@@ -71,6 +71,11 @@ parser.add_argument('--uniform_lambda', default='10', help='n_samples inference'
 parser.add_argument('--criterion__negative_sampling_ratio', default='-1', help='n_samples inference')
 parser.add_argument('--img_probemb', action='store_true', help='using img prob embeddings')
 parser.add_argument('--txt_probemb', action='store_true', help='using txt prob embeddings')
+
+#ablations
+parser.add_argument('--lang_mask', action='store_true', help='language masking for ablations')
+parser.add_argument('--img_mask', action='store_true', help='language masking for ablations')
+parser.add_argument('--k_analysis', action='store_true', help='language masking for ablations')
 
 
 
