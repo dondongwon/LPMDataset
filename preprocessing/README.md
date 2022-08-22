@@ -1,6 +1,6 @@
 ## Preprocessing
 
-![](/images/preproc_mturk.png)
+![](/images/preproc_mturk_1.png)
 
 The above image represents how the dataset was collected and processed. The grey boxes indicate forms of data (CSV consisting of Youtube Video Links or Playlist Link, Raw Video, Audio, and Cropped Videos). The red indicates a processing script or step. The green indicates the resulting, final data form used in our dataset. We list additional information for each processing step below.
 
@@ -19,7 +19,7 @@ We use the provided MTurk `mturk_slide_seg.html` to collect slide end segments. 
 
 
 
-![](/images/preproc_auto.png)
+![](/images/preproc_auto_1.png)
 
 
 - [x] (Reviewer FPNg, GHav) Dataset Extension: Include prepocessing tools, as well as automatic preprocessing steps (LayoutParser, PysceneDetect)
