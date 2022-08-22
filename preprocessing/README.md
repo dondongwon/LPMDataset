@@ -15,6 +15,11 @@ We use `ASR.py` to collect Google ASR transcriptons to be used for our dataset. 
 ### Scene Detect (aka Slide Segmentation)
 We use the provided MTurk `mturk_slide_seg.html` to collect slide end segments. For a screenshot, please check the appendix of the main paper. Here you need to feed a csv with links to images, which we recommend saving directly onto a AWS server. We provide detailed instructions, as well as links to our instruction video. You can also find it [here](https://youtu.be/LEKoAzU_kjM). We highly recommend the user to preview the content in MTurk Sandbox.
 
+### Extract Trace
+We extract the mouse traces in `get_traces.py` by looking at the segmented videos and calculating the pixel-wise difference between frame. For each segmented slide, the background is static and the only object that is moving is the pointer. If there is any movement, we consider that as the pointer location.
+
+### Extract Slide Image
+We extract the slide image via `extract_slide_imgs.py` from the given annotations, saved in a CSV outputted from the MTurk experiment in Scene Detect. We use the saved annotations in the dataframe with FFMPEG to save the slide image.
 
 
 
