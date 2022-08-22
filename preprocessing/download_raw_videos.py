@@ -20,10 +20,6 @@ CSV_PATH = os.path.join(BASE_PATH, "lecture_vids.csv")
 if __name__ == "__main__":
     df = pd.read_csv(CSV_PATH)
     df = df.dropna()
-    #df = df.iloc[:10]
-    #df = df.iloc[10:20]
-    df = df.iloc[20:]
-    pdb.set_trace()
 
     for index, row in df.iterrows():
         print("\n We are at Row: {} \n".format(index))
