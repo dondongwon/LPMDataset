@@ -19,22 +19,25 @@ Our Arxiv Paper can be found here:
 
 We thank the reviewers for their insightful comments regarding the github repo. We are taking each comment seriously and consequently the repository is going through a major renovation:
 
-- [x] (Reveiwer MsAX) Include human evaluation results, exact testing sets to enable investigatation on where humans fail 
-- [x] (Reviewer MsAX, GHav) Include requirements.txt
-- [x] (Reviewer S6Me) Include metadata on learning objectives - can be found in the video_links.csv in the dataset
+- [x] (Reveiwer MsAX) Include human evaluation results, exact testing sets to enable investigatation on where humans fail - can be found in `/human_study`
 
-- [x] Structure of Dataset 
-- [x] (Reviewer MsAX) Clearer instructions on how to handle this dataset, what corresponds to 1 example of the dataset - can be found in examples/quickstart.ipynb
+- [x] (Reviewer MsAX, GHav) Include requirements.txt - can be found in main directory
 
+- [x] (Reviewer S6Me) Include metadata on learning objectives - can be found in the `video_links.csv` in the dataset
 
-- [ ] (Reviewer FPNg, GHav) Dataset Extension: Include prepocessing tools, as well as automatic preprocessing steps (LayoutParser, PysceneDetect)
-- [ ] (Reviewer FPNg, GHav) Dataset Extension: Include manual annotation scripts (MTurk javascript code)
+- [x] (Reviewer MsAX) Clearer instructions on how to handle this dataset, what corresponds to 1 example of the dataset - can be found in `quickstart.ipynb`
 
-- [x] Script to run experiments
-- [x] (Reviewer S6Me, GHav) script to run across all different subjects 
-- [x] (Reviewer GHav) Ablation scripts (no image, no text)
-- [x] (Reviewer MsAX) How to reconsititute the splits of train and test (include references to code line number)
+- [x] (Reviewer FPNg, GHav) Dataset Extension: Include prepocessing tools, as well as automatic preprocessing steps (LayoutParser, PysceneDetect) - can be found in `/preprocessing`
 
+- [x] (Reviewer FPNg, GHav) Dataset Extension: Include manual annotation scripts (MTurk javascript code) - can be found in `/preprocessing`
+
+- [x] (Reviewer S6Me, GHav) script to run across all different subjects - scripts and instruction updated below in `Train model`
+
+- [x] (Reviewer GHav) Ablation scripts (no image, no text) - scripts and instruction updated below in `Train model`
+
+- [x] (Reviewer MsAX) How to reconsititute the splits of train and test (include references to code line number) - scripts and instruction updated below in `Train model`
+
+- [x] Added Dataset Structure - Below
 
 # Overview
 
