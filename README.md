@@ -21,7 +21,7 @@ We thank the reviewers for their insightful comments regarding the github repo. 
 
 - [x] (Reveiwer MsAX) Include human evaluation results, exact testing sets to enable investigatation on where humans fail - can be found in `/human_study`
 
-- [x] (Reviewer MsAX, GHav) Include requirements.txt - can be found in main directory
+- [x] (Reviewer MsAX, GHav) Include requirements.txt - can be found in main directoryin `Setting up the Environment`
 
 - [x] (Reviewer S6Me) Include metadata on learning objectives - can be found in the `video_links.csv` in the dataset
 
@@ -87,7 +87,7 @@ data
 
 ```
 
-## Seting up the Environment
+## Setting up the Environment
 
 ```
 conda create -y --name mlp_env python=3.7
