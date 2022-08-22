@@ -110,6 +110,10 @@ python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type be
 
 #PCME (BERT) 
 python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type glove --margin 0.1 --max_violation --num_embeds 5 --txt_attention   --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/pcme/glove/anat-1 --logger_name ./runs/pcme/glove/anat-1  --embed_dim 1024 --n_samples_inference 7 --model PCME --img_probemb --txt_probemb  
+
+#CLIP
+python clip.py --seed 3 --log_file ./logs/clip/anat-1 --data_name anat-1
+
 ```
 
 ### Our Model
