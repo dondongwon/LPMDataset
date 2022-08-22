@@ -1,5 +1,11 @@
 ## Preprocessing Tools
 
+![](/images/preproc_mturk.png)
+
+
+![](/images/preproc_auto.png)
+
+
 - [x] (Reviewer FPNg, GHav) Dataset Extension: Include prepocessing tools, as well as automatic preprocessing steps (LayoutParser, PysceneDetect)
 - [x] Download video script
 - [x] Pyscene Detect 
