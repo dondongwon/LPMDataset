@@ -54,9 +54,6 @@ def get_OCR(img_path):
 
     return kf_dict
 
-root_dir = "/projects/dataset_processed/dongwonl/localized_presentations/bio-1/g1JIbOMWBBM/g1JIbOMWBBM-Scene-001-03.jpg "
-kf_dict = get_OCR_demo(root_dir)
-
 for dirpath, subdirs, files in os.walk(BASE_PATH):
     for file in files:
         if file.endswith('.jpg'):
