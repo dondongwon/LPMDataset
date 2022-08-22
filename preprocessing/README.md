@@ -22,22 +22,19 @@ We extract the mouse traces in `get_traces.py` by looking at the segmented video
 We extract the slide image via `extract_slide_imgs.py` from the given annotations, saved in a CSV outputted from the MTurk experiment in Scene Detect. We use the saved annotations in the dataframe with FFMPEG to save the slide image.
 
 ### Extract Slide Figures 
-We use the provided MTurk `mturk_layout_parsing.html` to collect slide end segments. Fo Here you need to feed a csv with links to images, which we recommend saving directly onto a AWS server. We provide detailed instructions in our Instructions Tab. Our class labels are inspired from PRImA, a dataset that consists of layouts from scientific reports. We follow their taxonomy to find labels on figures, which consist of natural images,
+We use the provided MTurk `mturk_layout_parsing.html` to collect slide figures. Here you need to feed a csv with links to images, which we recommend saving directly onto a AWS server. We provide detailed instructions in our Instructions Tab. Our class labels are inspired from PRImA, a dataset that consists of layouts from scientific reports. We follow their taxonomy to find labels on figures, which consist of natural images,
 diagrams, table, and equations. In Appendix D of our main paper we provide details on figure class labels and a screenshot of the MTurk experiment. Afterwards we use `ocr.py` to extract the written text on the slide, it takes in a in a directory path with the images of each slide and outputs a pickle file with dictionary containing the strings and location values.
 
 
 ![](/images/preproc_auto_2.png)
 
+There are only *2* main processing steps that needs to be automated for easy expansion of our dataset. Instead of using manual MTurk annotations, we list the automatic alternatives and provide the scripts to enable them. 
 
-- [x] (Reviewer FPNg, GHav) Dataset Extension: Include prepocessing tools, as well as automatic preprocessing steps (LayoutParser, PysceneDetect)
-- [x] Download video script
-- [x] Pyscene Detect 
-- [x] Layout Parser
-- [x] Google ASR
-- [x] Extract Frames
-- [x] Get Traces
+### Scene Detect (via PySceneDetect)
+Instead of using MTurk `mturk_slide_seg.html, to collect the slide changes, we can utilize [PySceneDetect](https://pypi.org/project/scenedetect/),  "a command-line tool and Python library which analyzes a video, looking for scene changes or cuts". The script to enable this is in `pyscenedetect.py`. The script takes as input a base-path of videos to be segmented. Pyscene detect allows for many different arguments, such as 'save-images' that saves the desired slide images as you process the data, 'split-video' that saves the cropped videos, {}.stats.csv' that saves the metadata from the processing. 
+
+### Extract Slide Figures (via LayoutParser)
+Instead of using MTurk  `mturk_layout_parsing.html` to collect slide figures. We utilize [LayoutParser](https://github.com/Layout-Parser/layout-parser) that allows you to perform deep learning based layout detection simply, and also run OCR for each detected layout region. Layout Parser also supports the PRImA class label format, which is identical to the class labels that we utilize. The script can be found in `layoutparser.py`, which takes in a path and extracts the layouts of all images it finds in its subdirectories and saves them to a pickle file.
 
 
-- [x] (Reviewer FPNg, GHav) Dataset Extension: Include manual annotation scripts (MTurk javascript code)
-- [x] MTurk Scripts
 
