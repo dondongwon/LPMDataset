@@ -3,10 +3,10 @@
 This is the official repository for the *Multimodal Lecture Presentations (MLP) Dataset* 
 
 The dataset can be downloaded here:
-[Download](https://drive.google.com/file/d/13aDrmStlaSDFpacSXMOH1M5gaTo0i8c-/view?usp=sharing)
+[MLP Dataset Download](https://drive.google.com/file/d/13aDrmStlaSDFpacSXMOH1M5gaTo0i8c-/view?usp=sharing)
 
 Our Arxiv Paper can be found here: 
-["Multimodal Lecture Presentations Dataset: Understanding Multimodality in Educational Slides"](https://arxiv.org/abs/2208.08080)
+[Multimodal Lecture Presentations Dataset: Understanding Multimodality in Educational Slides](https://arxiv.org/abs/2208.08080)
 
 
  [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
