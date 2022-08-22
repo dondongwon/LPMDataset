@@ -130,6 +130,8 @@ class Ours_VILT(nn.Module):
     self.mil = opt.num_embeds > 1
     self.fig_enc = ViltModel.from_pretrained("dandelin/vilt-b32-mlm-itm")
     self.txt_enc = EncoderTextNoTrace(opt)
+    self.lang_mask = opt.lang_mask
+    self.img_mask = opt.img_mask
 
     # self.fc = nn.Sequential(
     #            nn.Linear(opt.word_dim * 185,opt.embed_size),
@@ -139,9 +141,21 @@ class Ours_VILT(nn.Module):
     #            )
 
   def forward(self,fig_ocr, spoken_output, pointer_target, cap_lengths):
-    
-    fig_emb = self.fig_enc(**fig_ocr).pooler_output
-    # pdb.set_trace()
+
+    if self.lang_mask:
+      fig_ocr['input_ids']*= 0
+
+    if self.img_mask: 
+      fig_ocr['pixel_values']*= 0
+
+    if fig_ocr['pixel_values'].dim() < 4: 
+      for k,v in fig_ocr.items(): 
+         fig_ocr[k] = v.unsqueeze(0)
+
+    try:      
+      fig_emb = self.fig_enc(**fig_ocr).pooler_output
+    except Exception as e:
+      pdb.set_trace()
     # fig_emb = fig_emb.last_hidden_state.flatten(1)
     # # fig_emb = self.fc(fig_emb.last_hidden_state.flatten(1))
     txt_emb, txt_attn, txt_residual = self.txt_enc(spoken_output, cap_lengths)
