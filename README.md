@@ -146,10 +146,10 @@ python3 train.py --model Ours_VILT_Trace  --seed 3 --data_name anat-1 --cnn_type
 python3 train.py --data_name all --seed 3 --cnn_type resnet152 --wemb_type bert+vilt --margin 0.1 --max_violation --num_embeds 5 --txt_attention --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/vilt/trace/anat-1 --logger_name ./runs/vilt/trace/anat-1 --model Ours_VILT_Trace --word_dim 768 --embed_size 768  
 
 #Ours (w/o figure language)
-python3 train.py --lang_mask --seed 1 --data_name anat-1 --cnn_type resnet152 --wemb_type bert+vilt --margin 0.1 --max_violation --num_embeds 5 --txt_attention --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/vilt/no_lang2/anat-1 --logger_name ./runs/vilt/no_lang2/anat-1 --model Ours_VILT --word_dim 768 --embed_size 768   
+python3 train.py --lang_mask --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type bert+vilt --margin 0.1 --max_violation --num_embeds 5 --txt_attention --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/vilt/no_lang2/anat-1 --logger_name ./runs/vilt/no_lang2/anat-1 --model Ours_VILT --word_dim 768 --embed_size 768   
 
 #Ours (w/o figure image)
-python3 train.py --img_mask   --seed 1 --data_name anat-1 --cnn_type resnet152 --wemb_type bert+vilt --margin 0.1 --max_violation --num_embeds 5 --txt_attention --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/vilt/no_lang2/anat-1 --logger_name ./runs/vilt/no_lang2/anat-1 --model Ours_VILT --word_dim 768 --embed_size 768 
+python3 train.py --img_mask   --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type bert+vilt --margin 0.1 --max_violation --num_embeds 5 --txt_attention --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/vilt/no_lang2/anat-1 --logger_name ./runs/vilt/no_lang2/anat-1 --model Ours_VILT --word_dim 768 --embed_size 768 
 
 ```
 
