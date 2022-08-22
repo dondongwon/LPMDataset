@@ -87,7 +87,16 @@ data
 
 You can train your own model using [train.py](train.py); check [option.py](option.py) for all available options. We provide example scripts below, for the speaker 'anat-1' and seed 3. We used the train and test split using the seeds 0, 2, 3. This will reconstitute the exact splits of the dataset that could be used to reproduce the results in our paper. 
 
+
+### Baselines 
+
+
+Here are the scripts used to test baselines:
+
 ```
+#Random
+python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type bert --margin 0.1 --max_violation --num_embeds 5 --txt_attention   --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/random/bert/anat-1 --logger_name ./runs/random/bert/anat-1 --model Random --word_dim 768  
+
 #PVSE (Glove)
 python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type bert --margin 0.1 --max_violation --num_embeds 5 --txt_attention   --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/pvse/bert/anat-1 --logger_name ./runs/pvse/bert/anat-1 --model PVSE --word_dim 768
 
@@ -99,19 +108,31 @@ python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type be
 
 #PCME (BERT) 
 python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type glove --margin 0.1 --max_violation --num_embeds 5 --txt_attention   --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/pcme/glove/anat-1 --logger_name ./runs/pcme/glove/anat-1  --embed_dim 1024 --n_samples_inference 7 --model PCME --img_probemb --txt_probemb  
+```
 
-#Ours (No Mouse Trace)
+### Our Model
+
+We provide scripts to train our model, with all the ablations reported in the main paper.
+
+```
+#Ours 
 python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type bert+vilt --margin 0.1 --max_violation --num_embeds 5 --txt_attention --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/vilt/no_trace/anat-1 --logger_name ./runs/vilt/no_trace/anat-1 --model Ours_VILT --word_dim 768 --embed_size 768  
 
 #Ours (Using Mouse Trace)
-python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type bert+vilt --margin 0.1 --max_violation --num_embeds 5 --txt_attention --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/vilt/trace/anat-1 --logger_name ./runs/vilt/trace/anat-1 --model Ours_VILT_Trace --word_dim 768 --embed_size 768  
+python3 train.py --model Ours_VILT_Trace  --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type bert+vilt --margin 0.1 --max_violation --num_embeds 5 --txt_attention --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/vilt/trace/anat-1 --logger_name ./runs/vilt/trace/anat-1 --word_dim 768 --embed_size 768  
 
+#Ours (Across all speakers)
+python3 train.py --data_name all --seed 3 --cnn_type resnet152 --wemb_type bert+vilt --margin 0.1 --max_violation --num_embeds 5 --txt_attention --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/vilt/trace/anat-1 --logger_name ./runs/vilt/trace/anat-1 --model Ours_VILT_Trace --word_dim 768 --embed_size 768  
 
-#Random
-python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type bert --margin 0.1 --max_violation --num_embeds 5 --txt_attention   --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/random/bert/anat-1 --logger_name ./runs/random/bert/anat-1 --model Random --word_dim 768  
+#Ours (w/o figure language)
+python3 train.py --lang_mask --seed 1 --data_name anat-1 --cnn_type resnet152 --wemb_type bert+vilt --margin 0.1 --max_violation --num_embeds 5 --txt_attention --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/vilt/no_lang2/anat-1 --logger_name ./runs/vilt/no_lang2/anat-1 --model Ours_VILT --word_dim 768 --embed_size 768   
 
+#Ours (w/o figure image)
+python3 train.py --img_mask   --seed 1 --data_name anat-1 --cnn_type resnet152 --wemb_type bert+vilt --margin 0.1 --max_violation --num_embeds 5 --txt_attention --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/vilt/no_lang2/anat-1 --logger_name ./runs/vilt/no_lang2/anat-1 --model Ours_VILT --word_dim 768 --embed_size 768 
 
 ```
+
+
 
 ## License
 At the time of release, all videos included in this dataset were being made available by the original content providers under the standard [YouTube License](https://www.youtube.com/static?template=terms).
