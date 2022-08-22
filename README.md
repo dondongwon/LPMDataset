@@ -84,6 +84,15 @@ data
 
 ```
 
+## Seting up the Environment
+
+```
+conda create -y --name mlp_env python=3.7
+conda install --force-reinstall -y -q --name mlp_env -c conda-forge --file requirements.txt
+```
+You will have the necessary environment to run our scrips and easily use our dataset at `mlp_env`. For quickstart, we recommend the user to take a look at our `quickstart.ipynb`
+
+
 ## Extend Dataset
 
 For those interested in extending the dataset, please check our `/preprocessing` directory. We have provided details steps to do so. 
