@@ -4,6 +4,7 @@ This is the official repository for the *Multimodal Lecture Presentations (MLP) 
 
 The dataset can be downloaded here: [Download](https://drive.google.com/file/d/13aDrmStlaSDFpacSXMOH1M5gaTo0i8c-/view?usp=sharing)
 
+Our Arxiv Paper can be found here: ["Multimodal Lecture Presentations Dataset: Understanding Multimodality in Educational Slides"](https://arxiv.org/abs/2208.08080)
 
 
  [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
@@ -82,9 +83,35 @@ data
 ```
 
 
-## Paper
+## Train  model
 
-Coming Soon... 
+You can train your own model using [train.py](train.py); check [option.py](option.py) for all available options. We provide example scripts below, for the speaker 'anat-1' and seed 3. We used the train and test split using the seeds 0, 2, 3. This will reconstitute the exact splits of the dataset that could be used to reproduce the results in our paper. 
+
+```
+#PVSE (Glove)
+python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type bert --margin 0.1 --max_violation --num_embeds 5 --txt_attention   --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/pvse/bert/anat-1 --logger_name ./runs/pvse/bert/anat-1 --model PVSE --word_dim 768
+
+#PVSE (Bert)
+python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type glove --margin 0.1 --max_violation --num_embeds 5 --txt_attention   --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/pvse/glove/anat-1 --logger_name ./runs/pvse/glove/anat-1 --model PVSE  
+
+#PCME (Glove)
+python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type bert --margin 0.1 --max_violation --num_embeds 5 --txt_attention   --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/pcme/bert/anat-1 --logger_name ./runs/pcme/bert/anat-1  --embed_dim 1024 --n_samples_inference 7 --model PCME --img_probemb --txt_probemb --word_dim 768  
+
+#PCME (BERT) 
+python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type glove --margin 0.1 --max_violation --num_embeds 5 --txt_attention   --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/pcme/glove/anat-1 --logger_name ./runs/pcme/glove/anat-1  --embed_dim 1024 --n_samples_inference 7 --model PCME --img_probemb --txt_probemb  
+
+#Ours (No Mouse Trace)
+python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type bert+vilt --margin 0.1 --max_violation --num_embeds 5 --txt_attention --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/vilt/no_trace/anat-1 --logger_name ./runs/vilt/no_trace/anat-1 --model Ours_VILT --word_dim 768 --embed_size 768  
+
+#Ours (Using Mouse Trace)
+python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type bert+vilt --margin 0.1 --max_violation --num_embeds 5 --txt_attention --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/vilt/trace/anat-1 --logger_name ./runs/vilt/trace/anat-1 --model Ours_VILT_Trace --word_dim 768 --embed_size 768  
+
+
+#Random
+python3 train.py --seed 3 --data_name anat-1 --cnn_type resnet152 --wemb_type bert --margin 0.1 --max_violation --num_embeds 5 --txt_attention   --img_finetune --mmd_weight 0.01 --div_weight 0.01 --batch_size 8 --log_file ./logs/random/bert/anat-1 --logger_name ./runs/random/bert/anat-1 --model Random --word_dim 768  
+
+
+```
 
 ## License
 At the time of release, all videos included in this dataset were being made available by the original content providers under the standard [YouTube License](https://www.youtube.com/static?template=terms).
