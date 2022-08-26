@@ -19,6 +19,8 @@ Our Arxiv Paper can be found here:
 
 We thank the reviewers for their insightful comments regarding the github repo. We are taking each comment seriously and consequently the repository is going through a major renovation:
 
+- [x] (Reviewer MsAX) Google Colab quickstart
+
 - [x] (Reviewer MsAX, GHav) Include requirements.txt - can be found in main directory in `Setting up the Environment`
 
 - [x] (Reveiwer MsAX) Include human evaluation results, exact testing sets to enable investigatation on where humans fail - can be found in `/human_study`
