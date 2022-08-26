@@ -22,7 +22,11 @@ The quickstart on colab can be found here:
 
 We thank the reviewers for their insightful comments regarding the github repo. We are taking each comment seriously and consequently the repository is going through a major renovation:
 
+### 08/26/22
+
 - [x] (Reviewer MsAX) Google Colab quickstart - [Link to Colab Quickstart](https://colab.research.google.com/drive/1htS8UltlGOw3XZiNFBx74z0of-4HJQ7l?usp=sharing)
+
+### 08/22/22
 
 - [x] (Reviewer MsAX, GHav) Include requirements.txt - can be found in main directory in `Setting up the Environment`
 
