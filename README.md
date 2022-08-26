@@ -24,11 +24,12 @@ We thank the reviewers for their insightful comments regarding the github repo. 
 
 ### 08/26/22
 
+- [x] (Reviewer MsAX) Pip-only requirements.txt (dataset only) - can be found in main directory in `Setting up the Environment`
 - [x] (Reviewer MsAX) Google Colab quickstart - [Link to Colab Quickstart](https://colab.research.google.com/drive/1htS8UltlGOw3XZiNFBx74z0of-4HJQ7l?usp=sharing)
 
 ### 08/22/22
 
-- [x] (Reviewer MsAX, GHav) Include requirements.txt - can be found in main directory in `Setting up the Environment`
+- [x] (Reviewer MsAX, GHav) Include requirements.txt (full baseline models, etc)- can be found in main directory in `Setting up the Environment`
 
 - [x] (Reveiwer MsAX) Include human evaluation results, exact testing sets to enable investigatation on where humans fail - can be found in `/human_study`
 
