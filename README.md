@@ -99,11 +99,22 @@ data
 
 ## Setting up the Environment
 
+### To use the dataset only:
+
+```
+python3 -m venv venv
+pip install -r requirements_dataset_only.txt
+```
+
+### To use the full codebase with all baselines:
+
 ```
 conda create -y --name mlp_env python=3.7
-conda install --force-reinstall -y -q --name mlp_env -c conda-forge --file requirements.txt
+conda install --force-reinstall -y -q --name mlp_env -c conda-forge --file requirements_full.txt
 ```
-You will have the necessary environment to run our scrips and easily use our dataset at `mlp_env`. For quickstart, we recommend the user to take a look at our `quickstart.ipynb`
+You will have the necessary environment to run our scrips and easily use our dataset at `mlp_env`.
+
+For quickstart, we recommend the user to take a look at our `quickstart.ipynb`
 
 
 ## Extend Dataset
