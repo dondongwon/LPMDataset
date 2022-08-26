@@ -8,6 +8,7 @@ The dataset can be downloaded here:
 Our Arxiv Paper can be found here: 
 [Multimodal Lecture Presentations Dataset: Understanding Multimodality in Educational Slides](https://arxiv.org/abs/2208.08080)
 
+The quickstart on colab can be found here: <a href=\"https://colab.research.google.com/github/dondongwon/MLPDataset/blob/main/quickstart_colab.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>
 
  [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
  
