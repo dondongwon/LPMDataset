@@ -8,7 +8,10 @@ The dataset can be downloaded here:
 Our Arxiv Paper can be found here: 
 [Multimodal Lecture Presentations Dataset: Understanding Multimodality in Educational Slides](https://arxiv.org/abs/2208.08080)
 
-The quickstart on colab can be found here: <a href=\"https://colab.research.google.com/github/dondongwon/MLPDataset/blob/main/quickstart_colab.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>
+The quickstart on colab can be found here: 
+[Colab Quickstart]([https://arxiv.org/abs/2208.08080](https://colab.research.google.com/drive/1htS8UltlGOw3XZiNFBx74z0of-4HJQ7l?usp=sharing))
+
+
 
  [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
  
@@ -20,7 +23,7 @@ The quickstart on colab can be found here: <a href=\"https://colab.research.goog
 
 We thank the reviewers for their insightful comments regarding the github repo. We are taking each comment seriously and consequently the repository is going through a major renovation:
 
-- [x] (Reviewer MsAX) Google Colab quickstart
+- [x] (Reviewer MsAX) Google Colab quickstart - [Link to Colab Quickstart]([https://arxiv.org/abs/2208.08080](https://colab.research.google.com/drive/1htS8UltlGOw3XZiNFBx74z0of-4HJQ7l?usp=sharing))
 
 - [x] (Reviewer MsAX, GHav) Include requirements.txt - can be found in main directory in `Setting up the Environment`
 
