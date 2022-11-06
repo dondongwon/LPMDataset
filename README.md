@@ -18,37 +18,6 @@ The quickstart on colab can be found here:
 [cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
 [cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
 
-# Updates 
-
-We thank the reviewers for their insightful comments regarding the github repo. We are taking each comment seriously and consequently the repository is going through a major renovation:
-
-### 08/26/22
-
-- [x] (Reviewer MsAX) Pip-only requirements.txt (dataset only) - can be found in main directory in `Setting up the Environment`
-- [x] (Reviewer MsAX) Google Colab quickstart - [Link to Colab Quickstart](https://colab.research.google.com/drive/1htS8UltlGOw3XZiNFBx74z0of-4HJQ7l?usp=sharing)
-
-### 08/22/22
-
-- [x] (Reviewer MsAX, GHav) Include requirements.txt (full baseline models, etc)- can be found in main directory in `Setting up the Environment`
-
-- [x] (Reveiwer MsAX) Include human evaluation results, exact testing sets to enable investigatation on where humans fail - can be found in `/human_study`
-
-- [x] (Reviewer MsAX) Clearer instructions on how to handle this dataset, what corresponds to 1 example of the dataset - can be found in `quickstart.ipynb`
-
-- [x] (Reviewer S6Me) Include metadata on learning objectives - can be found in the `video_links.csv` in the dataset
-
-- [x] (Reviewer FPNg, GHav) Dataset Extension: Include prepocessing tools, as well as automatic preprocessing steps (LayoutParser, PysceneDetect) - can be found in `/preprocessing`
-
-- [x] (Reviewer FPNg, GHav) Dataset Extension: Include manual annotation scripts (MTurk javascript code) - can be found in `/preprocessing`
-
-- [x] (Reviewer S6Me, GHav) script to run across all different subjects - scripts and instruction updated below in `Train model`
-
-- [x] (Reviewer GHav) Ablation scripts (no image, no text) - scripts and instruction updated below in `Train model`
-
-- [x] (Reviewer MsAX) How to reconsititute the splits of train and test (include references to code line number) - scripts and instruction updated below in `Train model`
-
-- [x] Added Dataset Structure - Below
-
 # Overview
 
 This repo is divided into the following sections:
