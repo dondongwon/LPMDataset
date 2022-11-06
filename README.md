@@ -183,13 +183,3 @@ Unless noted otherwise, we are providing the data of this repository under under
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
 
-## Contributors
-
-Correspondence to: 
-  - [Dong Won Lee](http://dongwonl.com) (dongwonl@cs.cmu.edu)
-  - [Chaitanya Ahuja](http://chahuja.com) (cahuja@andrew.cmu.edu)
-  - [Paul Pu Liang](https://www.cs.cmu.edu/~pliang/) (pliang@cs.cmu.edu)
-  - [Sanika Natu]() (snatu@andrew.cmu.edu)
-  - [Louis-Philippe Morency](https://www.cs.cmu.edu/~morency/) (morency@cs.cmu.edu)
-
-
