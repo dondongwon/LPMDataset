@@ -54,7 +54,7 @@ data
     │   {speaker}_capfig.json - a dictionary that maps the keys of {speaker}.json to {speaker}_figs.json, such that we can map the captions to the multiple figures
 │   │
 │   └───{lecture name or "unordered"} - a folder for each leacture series or 'unordered' (if videos are not from a consecutive series)
-│       │   slide_{number}.jpg - image of the slide
+│       │   slide_{number}.jpg - image of the slide (**not shared directly, needs preprocessing - please refer to /preprocessing**)
 │       │   slide_{number}_ocr.jpg - ocr of the slide
 │       │   slide_{number}_spoken.jpg - spoken language of the slide
 │       │   slide_{number}_trace.jpg - extracted mouse traces for slide
