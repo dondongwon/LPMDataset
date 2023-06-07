@@ -1,6 +1,6 @@
 # MLP Dataset
 
-MLP Dataset can be downloaded here: [Link to Data Download](https://drive.google.com/file/d/13aDrmStlaSDFpacSXMOH1M5gaTo0i8c-/view?usp=sharing)
+MLP Dataset can be downloaded here: [Link to Data Download](https://drive.google.com/file/d/1amyxxy4reuHGQ3FaKLE5bYzVxD7DOl7K/view?usp=sharing)
 
 We offer the Youtube video links in `raw_video_links.csv`, and the full MTurk annotations for in `figure_annotations.csv` (also included in the zipfile in the above link).
 
