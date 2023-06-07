@@ -9,6 +9,7 @@ import numpy as np
 import json as json
 import pickle5 as pickle
 import ast
+import video_transforms
 import torch
 import torch.utils.data as data
 import torchvision.transforms as transforms
@@ -343,8 +344,35 @@ def get_loaders(cap_json, fig_json, connect_json, vocab, root_dir, bs, wemb_type
   #       print(cap_lengths)
   #     return images, spoken_output, ocr_target, cap_lengths, index, img_ids
 
+  def collate_fn_fix(data, caption_lim = 512):
+    images, spoken_target, ocr_target, index, img_ids = zip(*data)
+    images = torch.stack(images, 0)
+    spoken_output = torch.stack(spoken_target) #fix this 
+    cap_lengths = torch.tensor([len(cap) if len(cap) <= caption_lim else caption_lim for cap in spoken_target])
+
+    return images, spoken_output, ocr_target, cap_lengths, index, img_ids
 
   def collate_fn_og(data, caption_lim = 512):
+  # Sort a data list by sentence length
+    data.sort(key=lambda x: len(x[1]), reverse=True)
+    images, spoken_target, ocr_target, index, img_ids = zip(*data)
+    # Merge images (convert tuple of 3D tensor to 4D tensor)
+    images = torch.stack(images, 0)
+
+    cap_lengths = torch.tensor([len(cap) if len(cap) <= caption_lim else caption_lim for cap in spoken_target])
+    spoken_output = torch.zeros(len(spoken_target), caption_lim).long()
+    
+    pdb.set_trace()
+    for i, cap in enumerate(spoken_target):
+      end = cap_lengths[i]
+      if end <= caption_lim:
+        spoken_output[i, :end] = cap[:end]
+      else:
+        cap_lengths[i] = caption_lim
+        spoken_output[i, :end] = cap[:caption_lim]
+      return images, spoken_output, ocr_target, cap_lengths, index, img_ids
+
+  def collate_fn_clip(data, caption_lim = 77):
   # Sort a data list by sentence length
     data.sort(key=lambda x: len(x[1]), reverse=True)
     images, spoken_target, ocr_target, index, img_ids = zip(*data)
@@ -372,6 +400,8 @@ def get_loaders(cap_json, fig_json, connect_json, vocab, root_dir, bs, wemb_type
     pointer_target = torch.stack(pointer_target)
     cap_lengths = (spoken_output != 0).sum(1)
     #list of dict to dict of lists: https://stackoverflow.com/questions/5558418/list-of-dicts-to-from-dict-of-lists
+
+    
     fig_ocr= {k: torch.stack([dic[k] for dic in fig_ocr]).squeeze() for k in fig_ocr[0]}
 
       
@@ -379,13 +409,18 @@ def get_loaders(cap_json, fig_json, connect_json, vocab, root_dir, bs, wemb_type
 
   
   if 'PCME' in model_type:
-    collate_fn = collate_fn_og
+    collate_fn = collate_fn_fix
   elif 'PVSE' in model_type:
-    collate_fn = collate_fn_og
+    collate_fn = collate_fn_fix
   elif 'Random' in model_type:
-    collate_fn = collate_fn_og
+    collate_fn = collate_fn_fix
   elif 'VILT' in model_type:
     collate_fn = collate_fn_vilt
+
+  elif 'clip' in model_type:
+    collate_fn = collate_fn_clip
+  
+    
   
 
   if split == 'train':
@@ -443,27 +478,35 @@ if __name__ == '__main__':
   sp = 'psy-1'
   target_vocab_path = './vocab/%s_vocab.pkl' % sp
   vocab = pickle.load(open(target_vocab_path, 'rb'))
-  root_dir = '/projects/dataset_processed/dongwonl/data/{}'.format(sp)
+  root_dir = '/projects/dataset_processed/LPM/data/{}'.format(sp)
 
-  with open("/projects/dataset_processed/dongwonl/data/{}/{}_figs.json".format(sp,sp), 'r') as f:
+  with open("/projects/dataset_processed/LPM/data/{}/{}_figs.json".format(sp,sp), 'r') as f:
      fig_json = json.loads(f.read())
 
-  with open("/projects/dataset_processed/dongwonl/data/{}/{}.json".format(sp,sp), 'r') as j:
+  with open("/projects/dataset_processed/LPM/data/{}/{}.json".format(sp,sp), 'r') as j:
      cap_json = json.loads(j.read())
 
-  with open("/projects/dataset_processed/dongwonl/data/{}/{}_capfig.json".format(sp,sp), 'r') as c:
+  with open("/projects/dataset_processed/LPM/data/{}/{}_capfig.json".format(sp,sp), 'r') as c:
      connect_json = json.loads(c.read())
+
+  def collate_fn_fix(data):
+    images, spoken_target, ocr_target, index, img_ids = zip(*data)
+    images = torch.stack(images, 0)
+    spoken_output = torch.stack(spoken_target)
+
+    return images, spoken_output, ocr_target, cap_lengths, index, img_ids
 
 
   transform = get_image_transform()
   wemb_type = 'bert'
   dataset = LPDataset(cap_json, fig_json, connect_json, vocab, root_dir, wemb_type, transform)
   loader = torch.utils.data.DataLoader(dataset=dataset,
-                                            batch_size=1,
+                                            batch_size=16,
                                             shuffle=True,
                                             pin_memory=True,
                                             num_workers=1,
-                                            collate_fn = collate_fn
+                                            collate_fn = collate_fn_fix,
+                                            drop_last = True 
                                             )
 
 #Press s to enter and you can find that you just entered __getitem__, and then you can set other breakpoints in n or in getitem and then debug with c                           
