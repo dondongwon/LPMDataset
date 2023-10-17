@@ -3,7 +3,8 @@
 This is the official repository for the *Lecture Presentations Multimodal (LPM) Dataset* 
 
 The dataset can be downloaded here:
-[LPM Dataset Download](https://drive.google.com/file/d/1amyxxy4reuHGQ3FaKLE5bYzVxD7DOl7K/view?usp=sharing)
+*[UPDATED Oct. 17, 2023]
+[LPM Dataset Download](https://drive.google.com/file/d/1yoilKif2bBb8Z9j8D5yqQKmjzG0uS7IB/view?usp=sharing)
 
 Our Arxiv Paper can be found here: 
 [Lecture Presentations Multimodal Dataset: Understanding Multimodality in Educational Slides](https://arxiv.org/abs/2208.08080)
